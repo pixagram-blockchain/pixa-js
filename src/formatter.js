@@ -20,7 +20,7 @@ module.exports = steemAPI => {
     const sbdOrders = !open_orders
       ? 0
       : open_orders.reduce((o, order) => {
-          if (order.sell_price.base.indexOf("SBD") !== -1) {
+          if (order.sell_price.base.indexOf("PXS") !== -1) {
             o += order.for_sale;
           }
           return o;
@@ -29,7 +29,7 @@ module.exports = steemAPI => {
     const steemOrders = !open_orders
       ? 0
       : open_orders.reduce((o, order) => {
-          if (order.sell_price.base.indexOf("STEEM") !== -1) {
+          if (order.sell_price.base.indexOf("PXC") !== -1) {
             o += order.for_sale;
           }
           return o;
@@ -43,9 +43,9 @@ module.exports = steemAPI => {
     let savings_sbd_pending = 0;
     savings_withdraws.forEach(withdraw => {
       const [amount, asset] = withdraw.amount.split(" ");
-      if (asset === "STEEM") savings_pending += parseFloat(amount);
+      if (asset === "PXC") savings_pending += parseFloat(amount);
       else {
-        if (asset === "SBD") savings_sbd_pending += parseFloat(amount);
+        if (asset === "PXS") savings_sbd_pending += parseFloat(amount);
       }
     });
     return { savings_pending, savings_sbd_pending };
@@ -54,7 +54,7 @@ module.exports = steemAPI => {
   function pricePerSteem(feed_price) {
     let price_per_steem = undefined;
     const { base, quote } = feed_price;
-    if (/ SBD$/.test(base) && / STEEM$/.test(quote)) {
+    if (/ PXS$/.test(base) && / PXC$/.test(quote)) {
       price_per_steem = parseFloat(base.split(" ")[0]) / parseFloat(quote.split(" ")[0]);
     }
     return price_per_steem;
@@ -157,7 +157,7 @@ module.exports = steemAPI => {
   return {
     reputation: function(reputation) {
       if (reputation == 0) return 25;
-      if (!reputation) return reputation;      
+      if (!reputation) return reputation;
       let neg = reputation < 0;
       let rep = String(reputation);
       rep = neg ? rep.substring(1) : rep;
