@@ -1,18 +1,18 @@
 import assert from 'assert'
 import Promise from 'bluebird';
 import should from 'should';
-import steem from '../src';
+import pixa from '../src';
 
-const username = process.env.STEEM_USERNAME || 'guest123';
-const password = process.env.STEEM_PASSWORD;
-const activeWif = steem.auth.toWif(username, password, 'active');
+const username = process.env.PIXA_USERNAME || 'guest123';
+const password = process.env.PIXA_PASSWORD;
+const activeWif = pixa.auth.toWif(username, password, 'active');
 
-describe('steem.smt:', () => {
+describe('pixa.smt:', () => {
 
   describe('smt creation ops', () => {
     it('signs and verifies smt_create', function(done) {
-      let url = steem.config.get('uri');
-      steem.api.setOptions({ url: url, useAppbaseApi: true });
+      let url = pixa.config.get('uri');
+      pixa.api.setOptions({ url: url, useAppbaseApi: true });
 
       let tx = {
         'operations': [[
@@ -24,13 +24,13 @@ describe('steem.smt:', () => {
         }]]
       }
 
-      steem.api.callAsync('condenser_api.get_version', []).then((result) => {
+      pixa.api.callAsync('condenser_api.get_version', []).then((result) => {
         if(result['blockchain_version'] < '0.24.0') return done(); /* SKIP AS THIS WILL ONLY PASS ON A TESTNET CURRENTLY */
         result.should.have.property('blockchain_version');
 
-        steem.broadcast._prepareTransaction(tx).then(function(tx){
-          tx = steem.auth.signTransaction(tx, [activeWif]);
-          steem.api.verifyAuthorityAsync(tx).then(
+        pixa.broadcast._prepareTransaction(tx).then(function(tx){
+          tx = pixa.auth.signTransaction(tx, [activeWif]);
+          pixa.api.verifyAuthorityAsync(tx).then(
             (result) => {result.should.equal(true); done();},
             (err)    => {done(err);}
           );
@@ -48,7 +48,7 @@ describe('steem.smt:', () => {
             'contribution_begin_time' : '2020-12-21T00:00:00',
             'contribution_end_time' : '2021-12-21T00:00:00',
             'launch_time' : '2021-12-22T00:00:00',
-            'steem_units_min' : 0,
+            'pixa_units_min' : 0,
             'min_unit_ratio' : 50,
             'max_unit_ratio' : 100,
             'extensions':[]
@@ -56,13 +56,13 @@ describe('steem.smt:', () => {
         ]]
       }
 
-      steem.api.callAsync('condenser_api.get_version', []).then((result) => {
+      pixa.api.callAsync('condenser_api.get_version', []).then((result) => {
         if(result['blockchain_version'] < '0.24.0') return done(); /* SKIP AS THIS WILL ONLY PASS ON A TESTNET CURRENTLY */
         result.should.have.property('blockchain_version');
 
-        steem.broadcast._prepareTransaction(tx).then(function(tx){
-          tx = steem.auth.signTransaction(tx, [activeWif]);
-          steem.api.verifyAuthorityAsync(tx).then(
+        pixa.broadcast._prepareTransaction(tx).then(function(tx){
+          tx = pixa.auth.signTransaction(tx, [activeWif]);
+          pixa.api.verifyAuthorityAsync(tx).then(
             (result) => {result.should.equal(true); done();},
             (err)    => {done(err);}
           );
@@ -76,12 +76,12 @@ describe('steem.smt:', () => {
           'smt_setup_ico_tier', {
             'control_account' : username,
             'symbol' : {'nai':'@@631672482','precision':3},
-            'steem_units_cap' : 10000,
+            'pixa_units_cap' : 10000,
             'generation_policy' : [
               0,
               {
                 'generation_unit' : {
-                  'steem_unit' : [
+                  'pixa_unit' : [
                     ['$!alice.vesting',2],
                     ['$market_maker',2],
                     ['alice',2]
@@ -103,13 +103,13 @@ describe('steem.smt:', () => {
         }]]
       }
 
-      steem.api.callAsync('condenser_api.get_version', []).then((result) => {
+      pixa.api.callAsync('condenser_api.get_version', []).then((result) => {
         if(result['blockchain_version'] < '0.24.0') return done(); /* SKIP AS THIS WILL ONLY PASS ON A TESTNET CURRENTLY */
         result.should.have.property('blockchain_version');
 
-        steem.broadcast._prepareTransaction(tx).then(function(tx){
-          tx = steem.auth.signTransaction(tx, [activeWif]);
-          steem.api.verifyAuthorityAsync(tx).then(
+        pixa.broadcast._prepareTransaction(tx).then(function(tx){
+          tx = pixa.auth.signTransaction(tx, [activeWif]);
+          pixa.api.verifyAuthorityAsync(tx).then(
             (result) => {result.should.equal(true); done();},
             (err)    => {done(err);}
           );
@@ -146,13 +146,13 @@ describe('steem.smt:', () => {
         }]]
       }
 
-      steem.api.callAsync('condenser_api.get_version', []).then((result) => {
+      pixa.api.callAsync('condenser_api.get_version', []).then((result) => {
         if(result['blockchain_version'] < '0.24.0') return done(); /* SKIP AS THIS WILL ONLY PASS ON A TESTNET CURRENTLY */
         result.should.have.property('blockchain_version');
 
-        steem.broadcast._prepareTransaction(tx).then(function(tx){
-          tx = steem.auth.signTransaction(tx, [activeWif]);
-          steem.api.verifyAuthorityAsync(tx).then(
+        pixa.broadcast._prepareTransaction(tx).then(function(tx){
+          tx = pixa.auth.signTransaction(tx, [activeWif]);
+          pixa.api.verifyAuthorityAsync(tx).then(
             (result) => {result.should.equal(true); done();},
             (err)    => {done(err);}
           );
@@ -174,13 +174,13 @@ describe('steem.smt:', () => {
         }]]
       }
 
-      steem.api.callAsync('condenser_api.get_version', []).then((result) => {
+      pixa.api.callAsync('condenser_api.get_version', []).then((result) => {
         if(result['blockchain_version'] < '0.24.0') return done(); /* SKIP AS THIS WILL ONLY PASS ON A TESTNET CURRENTLY */
         result.should.have.property('blockchain_version');
 
-        steem.broadcast._prepareTransaction(tx).then(function(tx){
-          tx = steem.auth.signTransaction(tx, [activeWif]);
-          steem.api.verifyAuthorityAsync(tx).then(
+        pixa.broadcast._prepareTransaction(tx).then(function(tx){
+          tx = pixa.auth.signTransaction(tx, [activeWif]);
+          pixa.api.verifyAuthorityAsync(tx).then(
             (result) => {result.should.equal(true); done();},
             (err)    => {done(err);}
           );
@@ -203,13 +203,13 @@ describe('steem.smt:', () => {
         }]]
       }
 
-      steem.api.callAsync('condenser_api.get_version', []).then((result) => {
+      pixa.api.callAsync('condenser_api.get_version', []).then((result) => {
         if(result['blockchain_version'] < '0.24.0') return done(); /* SKIP AS THIS WILL ONLY PASS ON A TESTNET CURRENTLY */
         result.should.have.property('blockchain_version');
 
-        steem.broadcast._prepareTransaction(tx).then(function(tx){
-          tx = steem.auth.signTransaction(tx, [activeWif]);
-          steem.api.verifyAuthorityAsync(tx).then(
+        pixa.broadcast._prepareTransaction(tx).then(function(tx){
+          tx = pixa.auth.signTransaction(tx, [activeWif]);
+          pixa.api.verifyAuthorityAsync(tx).then(
             (result) => {result.should.equal(true); done();},
             (err)    => {done(err);}
           );
@@ -229,13 +229,13 @@ describe('steem.smt:', () => {
         }]]
       }
 
-      steem.api.callAsync('condenser_api.get_version', []).then((result) => {
+      pixa.api.callAsync('condenser_api.get_version', []).then((result) => {
         if(result['blockchain_version'] < '0.24.0') return done(); /* SKIP AS THIS WILL ONLY PASS ON A TESTNET CURRENTLY */
         result.should.have.property('blockchain_version');
 
-        steem.broadcast._prepareTransaction(tx).then(function(tx){
-          tx = steem.auth.signTransaction(tx, [activeWif]);
-          steem.api.verifyAuthorityAsync(tx).then(
+        pixa.broadcast._prepareTransaction(tx).then(function(tx){
+          tx = pixa.auth.signTransaction(tx, [activeWif]);
+          pixa.api.verifyAuthorityAsync(tx).then(
             (result) => {result.should.equal(true); done();},
             (err)    => {done(err);}
           );
@@ -264,13 +264,13 @@ describe('steem.smt:', () => {
         }]]
       }
 
-      steem.api.callAsync('condenser_api.get_version', []).then((result) => {
+      pixa.api.callAsync('condenser_api.get_version', []).then((result) => {
         if(result['blockchain_version'] < '0.24.0') return done(); /* SKIP AS THIS WILL ONLY PASS ON A TESTNET CURRENTLY */
         result.should.have.property('blockchain_version');
 
-        steem.broadcast._prepareTransaction(tx).then(function(tx){
-          tx = steem.auth.signTransaction(tx, [activeWif]);
-          steem.api.verifyAuthorityAsync(tx).then(
+        pixa.broadcast._prepareTransaction(tx).then(function(tx){
+          tx = pixa.auth.signTransaction(tx, [activeWif]);
+          pixa.api.verifyAuthorityAsync(tx).then(
             (result) => {result.should.equal(true); done();},
             (err)    => {done(err);}
           );
@@ -285,7 +285,7 @@ describe('steem.smt:', () => {
             'author' : username,
             'permlink' : permlink,
             'max_accepted_payout' : '1000000.000 TESTS',
-            'percent_steem_dollars' : 10000,
+            'percent_pixa_burgers' : 10000,
             'allow_votes' : true,
             'allow_curation_rewards' : true,
             'extensions' : [[
@@ -301,13 +301,13 @@ describe('steem.smt:', () => {
         ]}}]]}]]}]]
       }
 
-      steem.api.callAsync('condenser_api.get_version', []).then((result) => {
+      pixa.api.callAsync('condenser_api.get_version', []).then((result) => {
         if(result['blockchain_version'] < '0.24.0') return done(); /* SKIP AS THIS WILL ONLY PASS ON A TESTNET CURRENTLY */
         result.should.have.property('blockchain_version');
 
-        steem.broadcast._prepareTransaction(tx).then(function(tx){
-          tx = steem.auth.signTransaction(tx, [activeWif]);
-          steem.api.verifyAuthorityAsync(tx).then(
+        pixa.broadcast._prepareTransaction(tx).then(function(tx){
+          tx = pixa.auth.signTransaction(tx, [activeWif]);
+          pixa.api.verifyAuthorityAsync(tx).then(
             (result) => {result.should.equal(true); done();},
             (err)    => {done(err);}
           );
@@ -330,13 +330,13 @@ describe('steem.smt:', () => {
         }]]
       }
 
-      steem.api.callAsync('condenser_api.get_version', []).then((result) => {
+      pixa.api.callAsync('condenser_api.get_version', []).then((result) => {
         if(result['blockchain_version'] < '0.24.0') return done(); /* SKIP AS THIS WILL ONLY PASS ON A TESTNET CURRENTLY */
         result.should.have.property('blockchain_version');
 
-        steem.broadcast._prepareTransaction(tx).then(function(tx){
-          tx = steem.auth.signTransaction(tx, [activeWif]);
-          steem.api.verifyAuthorityAsync(tx).then(
+        pixa.broadcast._prepareTransaction(tx).then(function(tx){
+          tx = pixa.auth.signTransaction(tx, [activeWif]);
+          pixa.api.verifyAuthorityAsync(tx).then(
             (result) => {result.should.equal(true); done();},
             (err)    => {done(err);}
           );

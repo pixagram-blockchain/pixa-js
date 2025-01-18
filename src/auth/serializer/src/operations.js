@@ -1,5 +1,5 @@
 
-// This file is merge updated from steemd's js_operation_serializer program.
+// This file is merge updated from pixad's js_operation_serializer program.
 /*
 
 ./js_operation_serializer |
@@ -88,7 +88,7 @@ const allowed_vote_assets = new Serializer(1, {
 
 const smt_generation_unit = new Serializer(
   "smt_generation_unit", {
-  steem_unit: map((string), (uint16)),
+  pixa_unit: map((string), (uint16)),
   token_unit: map((string), (uint16))
 });
 
@@ -332,7 +332,7 @@ let chain_properties = new Serializer(
     "chain_properties", {
     account_creation_fee: asset,
     maximum_block_size: uint32,
-    sbd_interest_rate: uint16
+    pxs_interest_rate: uint16
 }
 );
 
@@ -407,7 +407,7 @@ let comment_options = new Serializer(
     author: string,
     permlink: string,
     max_accepted_payout: asset,
-    percent_steem_dollars: uint16,
+    percent_pixa_burgers: uint16,
     allow_votes: bool,
     allow_curation_rewards: bool,
     extensions: set(static_variant([
@@ -488,8 +488,8 @@ let escrow_transfer = new Serializer(
     "escrow_transfer", {
     from: string,
     to: string,
-    sbd_amount: asset,
-    steem_amount: asset,
+    pxs_amount: asset,
+    pixa_amount: asset,
     escrow_id: uint32,
     agent: string,
     fee: asset,
@@ -517,8 +517,8 @@ let escrow_release = new Serializer(
     who: string,
     receiver: string,
     escrow_id: uint32,
-    sbd_amount: asset,
-    steem_amount: asset
+    pxs_amount: asset,
+    pixa_amount: asset
 }
 );
 
@@ -629,8 +629,8 @@ let set_reset_account = new Serializer(
 let claim_reward_balance = new Serializer(
     "claim_reward_balance", {
     account: string,
-    reward_steem: asset,
-    reward_sbd: asset,
+    reward_pixa: asset,
+    reward_pxs: asset,
     reward_vests: asset
 }
 );
@@ -745,7 +745,7 @@ let smt_setup = new Serializer(
   contribution_begin_time: time_point_sec,
   contribution_end_time: time_point_sec,
   launch_time: time_point_sec,
-  steem_units_min: int64,
+  pixa_units_min: int64,
   min_unit_ratio: uint32,
   max_unit_ratio: uint32,
   extensions: set(future_extensions)
@@ -777,7 +777,7 @@ let smt_setup_ico_tier = new Serializer(
     "smt_setup_ico_tier", {
     control_account: string,
     symbol: asset_symbol,
-    steem_units_cap: int64,
+    pixa_units_cap: int64,
     generation_policy: static_variant([
         smt_capped_generation_policy
     ]),
@@ -834,8 +834,8 @@ let author_reward = new Serializer(
     "author_reward", {
     author: string,
     permlink: string,
-    sbd_payout: asset,
-    steem_payout: asset,
+    pxs_payout: asset,
+    pixa_payout: asset,
     vesting_payout: asset
 }
 );

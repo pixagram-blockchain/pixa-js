@@ -1,8 +1,8 @@
 import assert from 'assert';
-import steem from '../src';
+import pixa from '../src';
 
-describe('steem.format.reputation', ()=> {
-    const reputation = steem.formatter.reputation;
+describe('pixa.format.reputation', ()=> {
+    const reputation = pixa.formatter.reputation;
     it('rep 0 => 25', () => {
         assert.equal(reputation(0), 25);
     });
@@ -32,5 +32,5 @@ describe('steem.format.reputation', ()=> {
     });
     it('rep -22233344455 => 12', () => {
         assert.equal(reputation(-22233344455), 12);
-    });    
+    });
 })

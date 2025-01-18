@@ -27,43 +27,43 @@
 - - - - - - - - - - - - - - - - - -
 # Install
 ```sh
-$ npm install steem --save
+$ npm install pixa --save
 ```
 
 - - - - - - - - - - - - - - - - - -
 - - - - - - - - - - - - - - - - - -
 # Browser 
 ```html 
-<script src="./steem.min.js"></script>
+<script src="./pixa.min.js"></script>
 <script>
-steem.api.getAccounts(['ned', 'dan'], function(err, response) {
+pixa.api.getAccounts(['ned', 'dan'], function(err, response) {
     console.log(err, response);
 });
 </script>
 ```
 - - - - - - - - - - - - - - - - - -
 ## Config
-Default config should work with steem. however you can change it to work with golos by 
+Default config should work with pixa. however you can change it to work with golos by 
 ```js
-steem.api.setOptions({ url: 'wss://ws.golos.io' }); // assuming websocket is working at ws.golos.io
-steem.config.set('address_prefix','GLS');
-steem.config.set('chain_id','782a3039b478c839e4cb0c941ff4eaeb7df40bdd68bd441afd444b9da763de12');
+pixa.api.setOptions({ url: 'wss://ws.golos.io' }); // assuming websocket is working at ws.golos.io
+pixa.config.set('address_prefix','GLS');
+pixa.config.set('chain_id','782a3039b478c839e4cb0c941ff4eaeb7df40bdd68bd441afd444b9da763de12');
 ```
 - - - - - - - - - - - - - - - - - -
 ### set
 ```js
-steem.config.set('address_prefix','STM');
+pixa.config.set('address_prefix','STM');
 ```
 - - - - - - - - - - - - - - - - - -
 ### get
 ```js
-steem.config.get('chain_id');
+pixa.config.get('chain_id');
 ```
 - - - - - - - - - - - - - - - - - -
 ## JSON-RPC
 Here is how to activate JSON-RPC transport:
 ```js
-steem.api.setOptions({ url: 'https://api.steemit.com' });
+pixa.api.setOptions({ url: 'https://api.steemit.com' });
 ```
 
 - - - - - - - - - - - - - - - - - -
@@ -74,28 +74,28 @@ steem.api.setOptions({ url: 'https://api.steemit.com' });
 - - - - - - - - - - - - - - - - - -
 ### Set Subscribe Callback
 ```js
-steem.api.setSubscribeCallback(callback, clearFilter, function(err, result) {
+pixa.api.setSubscribeCallback(callback, clearFilter, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Set Pending Transaction Callback
 ```js
-steem.api.setPendingTransactionCallback(cb, function(err, result) {
+pixa.api.setPendingTransactionCallback(cb, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Set Block Applied Callback
 ```js
-steem.api.setBlockAppliedCallback(cb, function(err, result) {
+pixa.api.setBlockAppliedCallback(cb, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Cancel All Subscriptions
 ```js
-steem.api.cancelAllSubscriptions(function(err, result) {
+pixa.api.cancelAllSubscriptions(function(err, result) {
   console.log(err, result);
 });
 ```
@@ -105,7 +105,7 @@ steem.api.cancelAllSubscriptions(function(err, result) {
 ### Get Trending Tags
 Returns a list of the currently trending tags in descending order by value.
 ```js
-steem.api.getTrendingTags(afterTag, limit, function(err, result) {
+pixa.api.getTrendingTags(afterTag, limit, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -119,15 +119,15 @@ steem.api.getTrendingTags(afterTag, limit, function(err, result) {
 
 Call Example:
 ```js
-steem.api.getTrendingTags('', 2, function(err, result) {
+pixa.api.getTrendingTags('', 2, function(err, result) {
   console.log(err, result);
 });
 ```
 
 Return Example:
 ```js
-[ { name: '', total_payouts: '37610793.383 SBD', net_votes: 4211122, top_posts: 411832, comments: 1344461, trending: '5549490701' },
-  { name: 'life', total_payouts: '8722947.658 SBD', net_votes: 1498401, top_posts: 127103, comments: 54049, trending: '570954588' } ]
+[ { name: '', total_payouts: '37610793.383 PXS', net_votes: 4211122, top_posts: 411832, comments: 1344461, trending: '5549490701' },
+  { name: 'life', total_payouts: '8722947.658 PXS', net_votes: 1498401, top_posts: 127103, comments: 54049, trending: '570954588' } ]
 ```
 
 Using the Result:
@@ -141,7 +141,7 @@ console.log(f);
 var lastKnownTag = result[result.length - 1].name;
 
 // Use the last known tag to get the next group of tags
-steem.api.TrendingTags(lastKnownTag, 2, function(err, result) {
+pixa.api.TrendingTags(lastKnownTag, 2, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -152,12 +152,12 @@ See also: [getTrendingCategories](#get-trending-categories)
 Gets the last `limit` number of posts of `account` before the post with index `entryId`
 
 ```js
-steem.api.getBlog(account, entryId, limit, callback);
+pixa.api.getBlog(account, entryId, limit, callback);
 ```
 
 |Parameter|Datatype|Description|
 |---------|--------|-----------|
-|account|string|a steem username|
+|account|string|a pixa username|
 |entryId|number|a positive number - the index from which to start counting (the index is zero based)|
 |limit|number|a positive number - the max count of posts to be returned|
 |callback|function|function(err, data) {/*code*/}|
@@ -165,7 +165,7 @@ steem.api.getBlog(account, entryId, limit, callback);
 
 Call Example:
 ```js
-steem.api.getBlog("username", 10, 3, function(err, data) {
+pixa.api.getBlog("username", 10, 3, function(err, data) {
 	console.log(err, data);
 });
 
@@ -177,21 +177,21 @@ steem.api.getBlog("username", 10, 3, function(err, data) {
 Return Example:
 ```js
 [ {
-		blog:"username"
-		comment: { /* Omited for simplicity */ }
-		entry_id: 10
+		blog:"username",
+		comment: { /* Omited for simplicity */ },
+		entry_id: 10,
 		reblog_on:"1970-01-01T00:00:00"
 	},
 	{
-		blog:"username"
-		comment: { /* Omited for simplicity */ }
-		entry_id: 9
+		blog:"username",
+		comment: { /* Omited for simplicity */ },
+		entry_id: 9,
 		reblog_on:"1970-01-01T00:00:00"
 	},
 	{
-		blog:"username"
-		comment: { /* Omited for simplicity */ }
-		entry_id: 8
+		blog:"username",
+		comment: { /* Omited for simplicity */ },
+		entry_id: 8,
 		reblog_on:"1970-01-01T00:00:00"
 	} ]
 ```
@@ -200,18 +200,18 @@ Return Example:
 Gets a list of all people who wrote in someones blog, along with how many times they wrote in that blog.
 
 ```js
-steem.api.getBlogAuthors(blogAccount, callback);
+pixa.api.getBlogAuthors(blogAccount, callback);
 ```
 
 |Parameter|Datatype|Description|
 |---------|--------|-----------|
-|blogAccount|string|a steem username|
+|blogAccount|string|a pixa username|
 |callback|function|function(err, data) {/*code*/}|
 
 
 Call Example:
 ```js
-steem.api.getBlogAuthors("username", function(err, data) {
+pixa.api.getBlogAuthors("username", function(err, data) {
 	console.log(err, data);
 });
 ```
@@ -227,15 +227,15 @@ Return Example:
 - - - - - - - - - - - - - - - - - -
 ### Get Blog Entries
 Gets the last `limit` number of posts of `account` before the post with index `entryId`
-Very similar to steem.api.getBlog but with much simpler result objects
+Very similar to pixa.api.getBlog but with much simpler result objects
 
 ```js
-steem.api.getBlogEntries(account, entryId, limit, callback);
+pixa.api.getBlogEntries(account, entryId, limit, callback);
 ```
 
 |Parameter|Datatype|Description|
 |---------|--------|-----------|
-|account|string|a steem username|
+|account|string|a pixa username|
 |entryId|number|a positive number - the index from which to start counting (the index is zero based)|
 |limit|number|a positive number - the max count of posts to be returned|
 |callback|function|function(err, data) {/*code*/}|
@@ -243,7 +243,7 @@ steem.api.getBlogEntries(account, entryId, limit, callback);
 
 Call Example:
 ```js
-steem.api.getBlogEntries("username", 10, 3, function(err, data) {
+pixa.api.getBlogEntries("username", 10, 3, function(err, data) {
 	console.log(err, data);
 });
 
@@ -272,10 +272,10 @@ Return Example:
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Discussions By Trending
-Gets the steem posts as they would be shown in the trending tab of steemit.com.
+Gets the pixa posts as they would be shown in the trending tab of steemit.com.
 
 ```js
-steem.api.getDiscussionsByTrending30(query, callback);
+pixa.api.getDiscussionsByTrending30(query, callback);
 ```
 
 |Parameter|Datatype|Description|
@@ -286,8 +286,8 @@ steem.api.getDiscussionsByTrending30(query, callback);
 
 Call Example:
 ```js
-var query = { limit : 3, tag : "steem" };
-steem.api.getDiscussionsByTrending30(query, function(err, data) {
+var query = { limit : 3, tag : "pixa" };
+pixa.api.getDiscussionsByTrending30(query, function(err, data) {
 	console.log(err, data);
 });
 
@@ -305,70 +305,70 @@ Return Example:
 - - - - - - - - - - - - - - - - - -
 ### Get Discussions By Created
 ```js
-steem.api.getDiscussionsByCreated(query, function(err, result) {
+pixa.api.getDiscussionsByCreated(query, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Discussions By Active
 ```js
-steem.api.getDiscussionsByActive(query, function(err, result) {
+pixa.api.getDiscussionsByActive(query, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Discussions By Cashout
 ```js
-steem.api.getDiscussionsByCashout(query, function(err, result) {
+pixa.api.getDiscussionsByCashout(query, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Discussions By Payout
 ```js
-steem.api.getDiscussionsByPayout(query, function(err, result) {
+pixa.api.getDiscussionsByPayout(query, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Discussions By Votes
 ```js
-steem.api.getDiscussionsByVotes(query, function(err, result) {
+pixa.api.getDiscussionsByVotes(query, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Discussions By Children
 ```js
-steem.api.getDiscussionsByChildren(query, function(err, result) {
+pixa.api.getDiscussionsByChildren(query, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Discussions By Hot
 ```js
-steem.api.getDiscussionsByHot(query, function(err, result) {
+pixa.api.getDiscussionsByHot(query, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Discussions By Feed
 ```js
-steem.api.getDiscussionsByFeed(query, function(err, result) {
+pixa.api.getDiscussionsByFeed(query, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Discussions By Blog
 ```js
-steem.api.getDiscussionsByBlog(query, function(err, result) {
+pixa.api.getDiscussionsByBlog(query, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Discussions By Comments
 ```js
-steem.api.getDiscussionsByComments(query, function(err, result) {
+pixa.api.getDiscussionsByComments(query, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -377,7 +377,7 @@ steem.api.getDiscussionsByComments(query, function(err, result) {
 Gets the recent posts ordered by how much was spent to promote them
 
 ```js
-steem.api.getDiscussionsByPromoted(query, callback);
+pixa.api.getDiscussionsByPromoted(query, callback);
 ```
 
 |Parameter|Datatype|Description|
@@ -388,8 +388,8 @@ steem.api.getDiscussionsByPromoted(query, callback);
 
 Call Example:
 ```js
-var query = { limit : 3, tag : "steem" };
-steem.api.getDiscussionsByPromoted(query, function(err, data) {
+var query = { limit : 3, tag : "pixa" };
+pixa.api.getDiscussionsByPromoted(query, function(err, data) {
 	console.log(err, data);
 });
 
@@ -409,7 +409,7 @@ Return Example:
 Gets the recent comments (not posts) ordered by their pending payout.
 
 ```js
-steem.api.getCommentDiscussionsByPayout(query, callback);
+pixa.api.getCommentDiscussionsByPayout(query, callback);
 ```
 
 |Parameter|Datatype|Description|
@@ -420,8 +420,8 @@ steem.api.getCommentDiscussionsByPayout(query, callback);
 
 Call Example:
 ```js
-var query = { limit : 3, tag : "steem" };
-steem.api.getCommentDiscussionsByPayout(query, function(err, data) {
+var query = { limit : 3, tag : "pixa" };
+pixa.api.getCommentDiscussionsByPayout(query, function(err, data) {
 	console.log(err, data);
 });
 
@@ -441,7 +441,7 @@ Return Example:
 Gets the recent posts ordered by their pending payout.
 
 ```js
-steem.api.getPostDiscussionsByPayout(query, callback);
+pixa.api.getPostDiscussionsByPayout(query, callback);
 ```
 
 |Parameter|Datatype|Description|
@@ -453,7 +453,7 @@ steem.api.getPostDiscussionsByPayout(query, callback);
 Call Example:
 ```js
 var query = { limit : 3, tag : "collorchallenge" };
-steem.api.getPostDiscussionsByPayout(query, function(err, data) {
+pixa.api.getPostDiscussionsByPayout(query, function(err, data) {
 	console.log(err, data);
 });
 
@@ -473,14 +473,14 @@ Return Example:
 - - - - - - - - - - - - - - - - - -
 ### Get Block Header
 ```js
-steem.api.getBlockHeader(blockNum, function(err, result) {
+pixa.api.getBlockHeader(blockNum, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Block
 ```js
-steem.api.getBlock(blockNum, function(err, result) {
+pixa.api.getBlock(blockNum, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -489,7 +489,7 @@ steem.api.getBlock(blockNum, function(err, result) {
 Gets all operations in a given block
 
 ```js
-steem.api.getOpsInBlock(blockNum, onlyVirtual, callback);
+pixa.api.getOpsInBlock(blockNum, onlyVirtual, callback);
 ```
 
 |Parameter|Datatype|Description|
@@ -501,7 +501,7 @@ steem.api.getOpsInBlock(blockNum, onlyVirtual, callback);
 
 Call Example:
 ```js
-steem.api.getOpsInBlock(10000001, false, function(err, data) {
+pixa.api.getOpsInBlock(10000001, false, function(err, data) {
 	console.log(err, data);
 });
 ```
@@ -529,34 +529,34 @@ Return Example:
 Gets a lot of information about the state of `path`
 
 ```js
-steem.api.getStateWith(path, callback);
+pixa.api.getStateWith(path, callback);
 ```
 
 |Parameter|Datatype|Description|
 |---------|--------|-----------|
-|path|string| like "/@username". This is the extension from the Steem URL. It can be used on users, posts, comments, comments-by-user, replies-to-user and so on|
+|path|string| like "/@username". This is the extension from the Pixa URL. It can be used on users, posts, comments, comments-by-user, replies-to-user and so on|
 |callback|function|function(err, data) {/*code*/}|
 
 
 Call Example:
 ```js
-steem.api.getState("/@username", function(err, data) {
+pixa.api.getState("/@username", function(err, data) {
 	console.log(err, data);
 });
 
 // Here are some valid calls:
 
-steem.api.getState("/@username", function(err, data) { console.log(data); });
+pixa.api.getState("/@username", function(err, data) { console.log(data); });
 
-steem.api.getState("/@username/permlink-of-post", function(err, data) { console.log(data); });
+pixa.api.getState("/@username/permlink-of-post", function(err, data) { console.log(data); });
 
-steem.api.getState("/@username/comments", function(err, data) { console.log(data); });
+pixa.api.getState("/@username/comments", function(err, data) { console.log(data); });
 
-steem.api.getState("/@username/recent-replies", function(err, data) { console.log(data); });
+pixa.api.getState("/@username/recent-replies", function(err, data) { console.log(data); });
 
-steem.api.getState("/trending", function(err, data) { console.log(data); });
+pixa.api.getState("/trending", function(err, data) { console.log(data); });
 
-steem.api.getState("/trending/collorchallenge", function(err, data) { console.log(data); });
+pixa.api.getState("/trending/collorchallenge", function(err, data) { console.log(data); });
 
 // and others....
 ```
@@ -564,67 +564,67 @@ steem.api.getState("/trending/collorchallenge", function(err, data) { console.lo
 Return Example:
 ```js
 // The result is huge, and can have many variations depending on what you are getting the state of. It can't be documented briefly. Here is some basic information:
-{	accounts: {username: {...}}
+{	accounts: {username: {}},
 	content: {
-		username/permlink1: {...},
-		username/permlink2: {...}, 
-		username/permlink3: {...} …}
-	current_route:"/@username"
-	discussion_idx: {...}
-	error:""
-	feed_price: {base: "3.889 SBD", quote: "1.000 STEEM"}
-	pow_queue: []
-	props: {...}
-	tag_idx: { trending: [...] }
-	tags:{...}
-	witness_schedule: {...}
-	witnesses: {...}	}
+		"username/permlink1": {},
+		"username/permlink2": {}, 
+		"username/permlink3": {} …},
+	current_route:"/@username",
+	discussion_idx: {},
+	error:"",
+	feed_price: {base: "3.889 PXS", quote: "1.000 PIXA"},
+	pow_queue: [],
+	"props": {},
+	tag_idx: { trending: [] },
+	tags:{},
+	witness_schedule: {},
+	witnesses: {}	}
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get State With Options
 
 ```js
-steem.api.getStateWith(options, callback);
+pixa.api.getStateWith(options, callback);
 ```
 
 |Parameter|Datatype|Description|
 |---------|--------|-----------|
-|options|object|like { path : "/@username"} where the path is an extension from a Steem URL. It can be used on users, posts, comments, comments-by-user, replies-to-user and so on|
+|options|object|like { path : "/@username"} where the path is an extension from a Pixa URL. It can be used on users, posts, comments, comments-by-user, replies-to-user and so on|
 |callback|function|function(err, data) {/*code*/}|
 
 
 Call Example:
 ```js
-steem.api.getStateWith({ path : "/@username" }, function(err, data) {
+pixa.api.getStateWith({ path : "/@username" }, function(err, data) {
 	console.log(err, data);
 });
 ```
-See `steem.api.getState` for more examples...
+See `pixa.api.getState` for more examples...
 - - - - - - - - - - - - - - - - - -
 ### Get Trending Categories
 ```js
-steem.api.getTrendingCategories(after, limit, function(err, result) {
+pixa.api.getTrendingCategories(after, limit, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Best Categories
 ```js
-steem.api.getBestCategories(after, limit, function(err, result) {
+pixa.api.getBestCategories(after, limit, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Active Categories
 ```js
-steem.api.getActiveCategories(after, limit, function(err, result) {
+pixa.api.getActiveCategories(after, limit, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Recent Categories
 ```js
-steem.api.getRecentCategories(after, limit, function(err, result) {
+pixa.api.getRecentCategories(after, limit, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -633,36 +633,36 @@ steem.api.getRecentCategories(after, limit, function(err, result) {
 - - - - - - - - - - - - - - - - - -
 ### Get Config
 ```js
-steem.api.getConfig(function(err, result) {
+pixa.api.getConfig(function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Dynamic Global Properties
 ```js
-steem.api.getDynamicGlobalProperties(function(err, result) {
+pixa.api.getDynamicGlobalProperties(function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Chain Properties
 ```js
-steem.api.getChainProperties(function(err, result) {
+pixa.api.getChainProperties(function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Feed Entries
 Gets the posts in the feed of a user.
-The feed displays posts of followed users, as well as what they resteemed.
+The feed displays posts of followed users, as well as what they repixed.
 
 ```js
-steem.api.getFeedEntries(account, entryId, limit, callback);
+pixa.api.getFeedEntries(account, entryId, limit, callback);
 ```
 
 |Parameter|Datatype|Description|
 |---------|--------|-----------|
-|account|string|a steem username|
+|account|string|a pixa username|
 |entryId|number|the post id from which to start counting. Write '0' to start from newest post|
 |limit|number|a positive number|
 |callback|function|function(err, data) {/*code*/}|
@@ -670,7 +670,7 @@ steem.api.getFeedEntries(account, entryId, limit, callback);
 
 Call Example:
 ```js
-steem.api.getFeedEntries("username", 0, 2, function(err, data) {
+pixa.api.getFeedEntries("username", 0, 2, function(err, data) {
 	console.log(err, data);
 });
 ```
@@ -679,7 +679,7 @@ Return Example:
 ```js
 [ { author: 'otherusername',
     permlink: 'permlink',
-    reblog_by: [ 'resteembot' ], 	//full when post is in feed because it's resteemed
+    reblog_by: [ 'repixabot' ], 	//full when post is in feed because it's repixed
     reblog_on: '2018-02-11T18:42:54',
     entry_id: 10260 },
   { author: 'otherusername',
@@ -691,23 +691,23 @@ Return Example:
 - - - - - - - - - - - - - - - - - -
 ### Get Feed History
 ```js
-steem.api.getFeedHistory(function(err, result) {
+pixa.api.getFeedHistory(function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Current Median History Price
 ```js
-steem.api.getCurrentMedianHistoryPrice(function(err, result) {
+pixa.api.getCurrentMedianHistoryPrice(function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Ticker
-Gets the lates summorized data from the steem market.
+Gets the lates summorized data from the pixa market.
 
 ```js
-steem.api.getTicker(callback);
+pixa.api.getTicker(callback);
 ```
 
 |Parameter|Datatype|Description|
@@ -717,7 +717,7 @@ steem.api.getTicker(callback);
 
 Call Example:
 ```js
-steem.api.getTicker(function(err, data) {
+pixa.api.getTicker(function(err, data) {
 	console.log(err, data);
 });
 ```
@@ -728,15 +728,15 @@ Return Example:
   lowest_ask: '0.89684014869888484',
   highest_bid: '0.89600000000000002',
   percent_change: '-14.56712923228768730',
-  steem_volume: '7397.697 STEEM',
-  sbd_volume: '6662.316 SBD' }
+  pixa_volume: '7397.697 PIXA',
+  pxs_volume: '6662.316 PXS' }
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Trade History
 Gets the trade history for a given period between a `start` date and an `end` date
 
 ```js
-steem.api.getTradeHistory(start, end, limit, callback);
+pixa.api.getTradeHistory(start, end, limit, callback);
 ```
 
 |Parameter|Datatype|Description|
@@ -752,7 +752,7 @@ Call Example:
 var start = "2018-01-01T00:00:00";
 var end = "2018-01-02T00:00:00";
 
-steem.api.getTradeHistory(start, end, 5, function(err, data) {
+pixa.api.getTradeHistory(start, end, 5, function(err, data) {
 	console.log(err, data);
 });
 ```
@@ -760,27 +760,27 @@ steem.api.getTradeHistory(start, end, 5, function(err, data) {
 Return Example:
 ```js
  [ { date: '2018-01-01T00:00:09',
-    current_pays: '10.192 SBD',
-    open_pays: '25.650 STEEM' },
+    current_pays: '10.192 PXS',
+    open_pays: '25.650 PIXA' },
   { date: '2018-01-01T00:00:09',
-    current_pays: '2.000 SBD',
-    open_pays: '5.033 STEEM' },
+    current_pays: '2.000 PXS',
+    open_pays: '5.033 PIXA' },
   { date: '2018-01-01T00:00:12',
-    current_pays: '13.560 SBD',
-    open_pays: '34.128 STEEM' },
+    current_pays: '13.560 PXS',
+    open_pays: '34.128 PIXA' },
   { date: '2018-01-01T00:00:12',
-    current_pays: '3.057 SBD',
-    open_pays: '7.690 STEEM' },
+    current_pays: '3.057 PXS',
+    open_pays: '7.690 PIXA' },
   { date: '2018-01-01T00:00:12',
-    current_pays: '6.908 SBD',
-    open_pays: '17.375 STEEM' } ] 
+    current_pays: '6.908 PXS',
+    open_pays: '17.375 PIXA' } ] 
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Version
-Gets the version of the Steem blockchain you are connected to.
+Gets the version of the Pixa blockchain you are connected to.
 
 ```js
-steem.api.getVersion(callback);
+pixa.api.getVersion(callback);
 ```
 
 |Parameter|Datatype|Description|
@@ -790,7 +790,7 @@ steem.api.getVersion(callback);
 
 Call Example:
 ```js
-steem.api.getVersion(function(err, data) {
+pixa.api.getVersion(function(err, data) {
 	console.log(err, data);
 });
 ```
@@ -798,15 +798,15 @@ steem.api.getVersion(function(err, data) {
 Return Example:
 ```js
 { blockchain_version: '0.19.2',
-  steem_revision: '07be64314ce9d277eb7da921b459c993c2e2412c',
+  pixa_revision: '07be64314ce9d277eb7da921b459c993c2e2412c',
   fc_revision: '8dd1fd1ec0906509eb722fa7c8d280d59bcca23d' }
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Volume
-Gets the Steem and Steem Dollar volumes
+Gets the Pixa and Pixa Burger volumes
 
 ```js
-steem.api.getVolume(callback);
+pixa.api.getVolume(callback);
 ```
 
 |Parameter|Datatype|Description|
@@ -816,21 +816,21 @@ steem.api.getVolume(callback);
 
 Call Example:
 ```js
-steem.api.getVolume(function(err, data) {
+pixa.api.getVolume(function(err, data) {
 	console.log(err, data);
 });
 ```
 
 Return Example:
 ```js
-{ steem_volume: '8101.888 STEEM',
-	sbd_volume: '7287.268 SBD' }
+{ pixa_volume: '8101.888 PIXA',
+	pxs_volume: '7287.268 PXS' }
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Hardfork Version
-Gets the current hardfork version of the STEEM blockchain.
+Gets the current hardfork version of the PIXA blockchain.
 ```js
-steem.api.getHardforkVersion(function(err, result) {
+pixa.api.getHardforkVersion(function(err, result) {
   console.log(err, result);
 });
 ```
@@ -846,38 +846,38 @@ See also: [getNextScheduledHardfork](#get-next-scheduled-hardfork), [getConfig](
 - - - - - - - - - - - - - - - - - -
 ### Get Next Scheduled Hardfork
 ```js
-steem.api.getNextScheduledHardfork(function(err, result) {
+pixa.api.getNextScheduledHardfork(function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Reward Fund
 ```js
-steem.api.getRewardFund(name, function(err, result) {
+pixa.api.getRewardFund(name, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Claim Reward Balance
-Claims pending rewards, be they Steem, SBD or Vests.
+Claims pending rewards, be they Pixa, PXS or Vests.
 
 ```js
-steem.broadcast.claimRewardBalance(wif, account, reward_steem, reward_sbd, reward_vests, callback);
+pixa.broadcast.claimRewardBalance(wif, account, reward_pixa, reward_pxs, reward_vests, callback);
 ```
 
 |Parameter|Datatype|Description|
 |---------|--------|-----------|
-|wif|string|Use steem.auth.toWif(user, pass, type)|
-|account|string|a steem username|
-|reward_steem|string|balance like "0.000 STEEM"|
-|reward_sbd|string|balance like "0.000 SBD"|
+|wif|string|Use pixa.auth.toWif(user, pass, type)|
+|account|string|a pixa username|
+|reward_pixa|string|balance like "0.000 PIXA"|
+|reward_pxs|string|balance like "0.000 PXS"|
 |reward_vests|string|balance like "0.000006 VESTS"|
 |callback|function|function(err, data) {/*code*/}|
 
 
 Call Example:
 ```js
-steem.broadcast.claimRewardBalance("5Hupd....pp7vGY", "username", "0.000 STEEM", "0.000 SBD", "0.000006 VESTS", function(err, data) {
+pixa.broadcast.claimRewardBalance("5Hupd....pp7vGY", "username", "0.000 PIXA", "0.000 PXS", "0.000006 VESTS", function(err, data) {
 	console.log(err, data);
 });
 ```
@@ -897,15 +897,15 @@ Return Example:
 ```
 - - - - - - - - - - - - - - - - - -
 ### Claim Reward Balance With Options
-Claims pending rewards, be they Steem, SBD or Vests.
+Claims pending rewards, be they Pixa, PXS or Vests.
 
 ```js
-steem.broadcast.claimRewardBalanceWith(wif, options, callback);
+pixa.broadcast.claimRewardBalanceWith(wif, options, callback);
 ```
 
 |Parameter|Datatype|Description|
 |---------|--------|-----------|
-|wif|string|Use < steem.auth.toWif(user, pass, type) >|
+|wif|string|Use < pixa.auth.toWif(user, pass, type) >|
 |options|object|an object containing the calim parameters. Look at the example below.|
 |callback|function|function(err, data) {/*code*/}|
 
@@ -914,11 +914,11 @@ Call Example:
 ```js
 var options = {
     account:"username",
-    reward_sbd:"0.000 SBD",
-    reward_steem:"0.000 STEEM",
+    reward_pxs:"0.000 PXS",
+    reward_pixa:"0.000 PIXA",
     reward_vests:"0.000006 VESTS"
 }
-steem.broadcast.claimRewardBalanceWith("5Hupd....pp7vGY", options, function(err, data) {
+pixa.broadcast.claimRewardBalanceWith("5Hupd....pp7vGY", options, function(err, data) {
 	console.log(err, data);
 });
 ```
@@ -940,7 +940,7 @@ Return Example:
 ### Get Vesting Delegations
 Returns a list of delegations made from one `account`. Denominated in VESTS.
 ```js
-steem.api.getVestingDelegations(account, from, limit, function(err, result) {
+pixa.api.getVestingDelegations(account, from, limit, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -955,7 +955,7 @@ steem.api.getVestingDelegations(account, from, limit, function(err, result) {
 
 Call Example:
 ```js
-steem.api.getVestingDelegations('ned', '', 2, function(err, result) {
+pixa.api.getVestingDelegations('ned', '', 2, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -977,7 +977,7 @@ console.log(f);
 var lastKnownDelegatee = result[result.length - 1].delegatee;
 
 // Use the last known delegatee to get the next group of delegatees
-steem.api.TrendingTags('ned', lastKnownDelegatee, 2, function(err, result) {
+pixa.api.TrendingTags('ned', lastKnownDelegatee, 2, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -989,7 +989,7 @@ See also: [accountCreateWithDelegation](#account-create-with-delegation), [deleg
 - - - - - - - - - - - - - - - - - -
 ### Get Key References
 ```js
-steem.api.getKeyReferences(key, function(err, result) {
+pixa.api.getKeyReferences(key, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -998,63 +998,63 @@ steem.api.getKeyReferences(key, function(err, result) {
 - - - - - - - - - - - - - - - - - -
 ### Get Accounts
 ```js
-steem.api.getAccounts(names, function(err, result) {
+pixa.api.getAccounts(names, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Account References
 ```js
-steem.api.getAccountReferences(accountId, function(err, result) {
+pixa.api.getAccountReferences(accountId, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Lookup Account Names
 ```js
-steem.api.lookupAccountNames(accountNames, function(err, result) {
+pixa.api.lookupAccountNames(accountNames, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Lookup Accounts
 ```js
-steem.api.lookupAccounts(lowerBoundName, limit, function(err, result) {
+pixa.api.lookupAccounts(lowerBoundName, limit, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Account Count
 ```js
-steem.api.getAccountCount(function(err, result) {
+pixa.api.getAccountCount(function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Conversion Requests
 ```js
-steem.api.getConversionRequests(accountName, function(err, result) {
+pixa.api.getConversionRequests(accountName, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Account History
 ```js
-steem.api.getAccountHistory(account, from, limit, function(err, result) {
+pixa.api.getAccountHistory(account, from, limit, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Owner History
 ```js
-steem.api.getOwnerHistory(account, function(err, result) {
+pixa.api.getOwnerHistory(account, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Recovery Request
 ```js
-steem.api.getRecoveryRequest(account, function(err, result) {
+pixa.api.getRecoveryRequest(account, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -1062,15 +1062,15 @@ steem.api.getRecoveryRequest(account, function(err, result) {
 ### Get Account Bandwidth
 Get the bandwidth of the `account`.
 The bandwidth is the limit of data that can be uploaded to the blockchain.
-To have bigger bandwidth - power up your steem.
+To have bigger bandwidth - power up your pixa.
 
 ```js
-steem.api.getAccountBandwidth(account, bandwidthType, callback);
+pixa.api.getAccountBandwidth(account, bandwidthType, callback);
 ```
 
 |Parameter|Datatype|Description|
 |---------|--------|-----------|
-|account|string|a steem username|
+|account|string|a pixa username|
 |bandwidthType|number|This is a value from an enumeration of predefined values. '1' is for the "Forum" bandwidth, and '2' is for "Market" bandwidth|
 |callback|function|function(err, data) {/*code*/}|
 
@@ -1080,7 +1080,7 @@ Call Example:
 const forumBandwidthType = 1;
 const marketBandwidthType = 2;
 
-steem.api.getAccountBandwidth("username", forumBandwidthType, function(err, data) {
+pixa.api.getAccountBandwidth("username", forumBandwidthType, function(err, data) {
 	console.log(err, data);
 });
 ```
@@ -1099,7 +1099,7 @@ Return Example:
 Get the bandwidth of the user specified in the options.
 
 ```js
-steem.api.getAccountBandwidthWith(options, callback);
+pixa.api.getAccountBandwidthWith(options, callback);
 ```
 
 |Parameter|Datatype|Description|
@@ -1114,7 +1114,7 @@ var options = {
 	account: "username",
 	bandwidthType: 2
 }
-steem.api.getAccountBandwidthWith(options, function(err, data) {
+pixa.api.getAccountBandwidthWith(options, function(err, data) {
 	console.log(err, data);
 });
 ```
@@ -1133,19 +1133,19 @@ Return Example:
 Gets the reputation points of `limit` accounts with names most similar to `lowerBoundName`.
 
 ```js
-steem.api.getAccountReputations(lowerBoundName, limit, callback);
+pixa.api.getAccountReputations(lowerBoundName, limit, callback);
 ```
 
 |Parameter|Datatype|Description|
 |---------|--------|-----------|
-|lowerBoundName|string|a steem username query|
+|lowerBoundName|string|a pixa username query|
 |limit|number|a positive number|
 |callback|function|function(err, data) {/*code*/}|
 
 
 Call Example:
 ```js
-steem.api.getAccountReputations("username", 2, function(err, data) {
+pixa.api.getAccountReputations("username", 2, function(err, data) {
 	console.log(err, data);
 });
 ```
@@ -1160,7 +1160,7 @@ Return Example:
 - - - - - - - - - - - - - - - - - -
 ### Get Order Book
 ```js
-steem.api.getOrderBook(limit, function(err, result) {
+pixa.api.getOrderBook(limit, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -1169,7 +1169,7 @@ steem.api.getOrderBook(limit, function(err, result) {
 Takes the top-most `limit` entries in the market order book for both buy and sell orders.
 
 ```js
-steem.api.getMarketOrderBook(limit, callback);
+pixa.api.getMarketOrderBook(limit, callback);
 ```
 
 |Parameter|Datatype|Description|
@@ -1180,7 +1180,7 @@ steem.api.getMarketOrderBook(limit, callback);
 
 Call Example:
 ```js
-steem.api.getMarketOrderBook(2, function(err, data) {
+pixa.api.getMarketOrderBook(2, function(err, data) {
 	console.log(err, data);
 });
 ```
@@ -1188,18 +1188,18 @@ steem.api.getMarketOrderBook(2, function(err, data) {
 Return Example:
 ```js
  { bids: 
-   [ { price: '0.91116173120728938', steem: 2195, sbd: 2000 },
-     { price: '0.91089965397923878', steem: 1156, sbd: 1053 } ],
+   [ { price: '0.91116173120728938', pixa: 2195, pxs: 2000 },
+     { price: '0.91089965397923878', pixa: 1156, pxs: 1053 } ],
   asks: 
-   [ { price: '0.91145625249700357', steem: 9053, sbd: 8251 },
-     { price: '0.91159226975214813', steem: 16184, sbd: 14753 } ] }
+   [ { price: '0.91145625249700357', pixa: 9053, pxs: 8251 },
+     { price: '0.91159226975214813', pixa: 16184, pxs: 14753 } ] }
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Market Order Book With Options
 Takes the top-most `limit` entries in the market order book for both buy and sell orders.
 
 ```js
-steem.api.getMarketOrderBookWith(options, callback);
+pixa.api.getMarketOrderBookWith(options, callback);
 ```
 
 |Parameter|Datatype|Description|
@@ -1210,7 +1210,7 @@ steem.api.getMarketOrderBookWith(options, callback);
 
 Call Example:
 ```js
-steem.api.getMarketOrderBookWith({ limit: 3 }, function(err, data) {
+pixa.api.getMarketOrderBookWith({ limit: 3 }, function(err, data) {
 	console.log(err, data);
 });
 ```
@@ -1218,25 +1218,25 @@ steem.api.getMarketOrderBookWith({ limit: 3 }, function(err, data) {
 Return Example:
 ```js
  { bids: 
-   [ { price: '0.90160333845815954', steem: 9106, sbd: 8210 },
-     { price: '0.90152855993563952', steem: 12430, sbd: 11206 },
-     { price: '0.89992800575953924', steem: 5556, sbd: 5000 } ],
+   [ { price: '0.90160333845815954', pixa: 9106, pxs: 8210 },
+     { price: '0.90152855993563952', pixa: 12430, pxs: 11206 },
+     { price: '0.89992800575953924', pixa: 5556, pxs: 5000 } ],
   asks: 
-   [ { price: '0.91004578507945044', steem: 5055, sbd: 4600 },
-     { price: '0.91103965702036438', steem: 15853, sbd: 14442 },
-     { price: '0.91112433075550281', steem: 5874, sbd: 5351 } ] } 
+   [ { price: '0.91004578507945044', pixa: 5055, pxs: 4600 },
+     { price: '0.91103965702036438', pixa: 15853, pxs: 14442 },
+     { price: '0.91112433075550281', pixa: 5874, pxs: 5351 } ] } 
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Open Orders
 ```js
-steem.api.getOpenOrders(owner, function(err, result) {
+pixa.api.getOpenOrders(owner, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Liquidity Queue
 ```js
-steem.api.getLiquidityQueue(startAccount, limit, function(err, result) {
+pixa.api.getLiquidityQueue(startAccount, limit, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -1244,7 +1244,7 @@ steem.api.getLiquidityQueue(startAccount, limit, function(err, result) {
 ### Get Market History Buckets
 
 ```js
-steem.api.getMarketHistoryBuckets(callback);
+pixa.api.getMarketHistoryBuckets(callback);
 ```
 
 |Parameter|Datatype|Description|
@@ -1254,7 +1254,7 @@ steem.api.getMarketHistoryBuckets(callback);
 
 Call Example:
 ```js
-steem.api.getMarketHistoryBuckets(function(err, data) {
+pixa.api.getMarketHistoryBuckets(function(err, data) {
 	console.log(err, data);
 });
 ```
@@ -1268,62 +1268,62 @@ Return Example:
 - - - - - - - - - - - - - - - - - -
 ### Get Transaction Hex
 ```js
-steem.api.getTransactionHex(trx, function(err, result) {
+pixa.api.getTransactionHex(trx, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Transaction
 ```js
-steem.api.getTransaction(trxId, function(err, result) {
+pixa.api.getTransaction(trxId, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Required Signatures
 ```js
-steem.api.getRequiredSignatures(trx, availableKeys, function(err, result) {
+pixa.api.getRequiredSignatures(trx, availableKeys, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Potential Signatures
 ```js
-steem.api.getPotentialSignatures(trx, function(err, result) {
+pixa.api.getPotentialSignatures(trx, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Verify Authority
 ```js
-steem.api.verifyAuthority(trx, function(err, result) {
+pixa.api.verifyAuthority(trx, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Verify Account Authority
 ```js
-steem.api.verifyAccountAuthority(nameOrId, signers, function(err, result) {
+pixa.api.verifyAccountAuthority(nameOrId, signers, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Tags Used By Author
-Gets tags used by a steem user. Most users have no tags yet, but some do.
+Gets tags used by a pixa user. Most users have no tags yet, but some do.
 
 ```js
-steem.api.getTagsUsedByAuthor(author, callback);
+pixa.api.getTagsUsedByAuthor(author, callback);
 ```
 
 |Parameter|Datatype|Description|
 |---------|--------|-----------|
-|author|string|a steem username|
+|author|string|a pixa username|
 |callback|function|function(err, data) {/*code*/}|
 
 
 Call Example:
 ```js
-steem.api.getTagsUsedByAuthor("good-karma", function(err, data) {
+pixa.api.getTagsUsedByAuthor("good-karma", function(err, data) {
 	console.log(err, data);
 });
 ```
@@ -1337,14 +1337,14 @@ Return Example:
 - - - - - - - - - - - - - - - - - -
 ### Get Active Votes
 ```js
-steem.api.getActiveVotes(author, permlink, function(err, result) {
+pixa.api.getActiveVotes(author, permlink, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Account Votes
 ```js
-steem.api.getAccountVotes(voter, function(err, result) {
+pixa.api.getAccountVotes(voter, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -1353,42 +1353,42 @@ steem.api.getAccountVotes(voter, function(err, result) {
 - - - - - - - - - - - - - - - - - -
 ### Get Content
 ```js
-steem.api.getContent(author, permlink, function(err, result) {
+pixa.api.getContent(author, permlink, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Content Replies
 ```js
-steem.api.getContentReplies(author, permlink, function(err, result) {
+pixa.api.getContentReplies(author, permlink, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Discussions By Author Before Date
 ```js
-steem.api.getDiscussionsByAuthorBeforeDate(author, startPermlink, beforeDate, limit, function(err, result) {
+pixa.api.getDiscussionsByAuthorBeforeDate(author, startPermlink, beforeDate, limit, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Reblogged By
-Gives a list of the users that reblogged (resteemed) a given post
+Gives a list of the users that reblogged (repixed) a given post
 
 ```js
-steem.api.getRebloggedBy(author, permlink, callback);
+pixa.api.getRebloggedBy(author, permlink, callback);
 ```
 
 |Parameter|Datatype|Description|
 |---------|--------|-----------|
-|author|string|a steem username|
+|author|string|a pixa username|
 |permlink|string|a permalink of comment or post|
 |callback|function|function(err, data) {/*code*/}|
 
 
 Call Example:
 ```js
-steem.api.getRebloggedBy("author", "example-permlink", function(err, data) {
+pixa.api.getRebloggedBy("author", "example-permlink", function(err, data) {
 	console.log(err, data);
 });
 ```
@@ -1404,7 +1404,7 @@ Return Example:
 - - - - - - - - - - - - - - - - - -
 ### Get Replies By Last Update
 ```js
-steem.api.getRepliesByLastUpdate(startAuthor, startPermlink, limit, function(err, result) {
+pixa.api.getRepliesByLastUpdate(startAuthor, startPermlink, limit, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -1413,7 +1413,7 @@ steem.api.getRepliesByLastUpdate(startAuthor, startPermlink, limit, function(err
 - - - - - - - - - - - - - - - - - -
 ### Get Witnesses
 ```js
-steem.api.getWitnesses(witnessIds, function(err, result) {
+pixa.api.getWitnesses(witnessIds, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -1421,7 +1421,7 @@ steem.api.getWitnesses(witnessIds, function(err, result) {
 ### Get Witness By Account
 Returns information about a witness with the given `accountName`.
 ```js
-steem.api.getWitnessByAccount(accountName, function(err, result) {
+pixa.api.getWitnessByAccount(accountName, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -1432,7 +1432,7 @@ steem.api.getWitnessByAccount(accountName, function(err, result) {
 
 Call Example:
 ```js
-steem.api.getVestingDelegations('sircork', '', 2, function(err, result) {
+pixa.api.getVestingDelegations('sircork', '', 2, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -1441,28 +1441,28 @@ See also:
 - - - - - - - - - - - - - - - - - -
 ### Get Witnesses By Vote
 ```js
-steem.api.getWitnessesByVote(from, limit, function(err, result) {
+pixa.api.getWitnessesByVote(from, limit, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Lookup Witness Accounts
 ```js
-steem.api.lookupWitnessAccounts(lowerBoundName, limit, function(err, result) {
+pixa.api.lookupWitnessAccounts(lowerBoundName, limit, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Witness Count
 ```js
-steem.api.getWitnessCount(function(err, result) {
+pixa.api.getWitnessCount(function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Active Witnesses
 ```js
-steem.api.getActiveWitnesses(function(err, result) {
+pixa.api.getActiveWitnesses(function(err, result) {
   console.log(err, result);
 });
 
@@ -1472,7 +1472,7 @@ steem.api.getActiveWitnesses(function(err, result) {
 Gets some general information about the witnesses.
 
 ```js
-steem.api.getWitnessSchedule(callback);
+pixa.api.getWitnessSchedule(callback);
 ```
 
 |Parameter|Datatype|Description|
@@ -1482,7 +1482,7 @@ steem.api.getWitnessSchedule(callback);
 
 Call Example:
 ```js
-steem.api.getWitnessSchedule(function(err, data) {
+pixa.api.getWitnessSchedule(function(err, data) {
   console.log(err,data);
 }
 ```
@@ -1499,9 +1499,9 @@ Return Example:
   miner_weight: 1,
   witness_pay_normalization_factor: 25,
   median_props: 
-   { account_creation_fee: '0.100 STEEM',
+   { account_creation_fee: '0.100 PIXA',
      maximum_block_size: 65536,
-     sbd_interest_rate: 0 },
+     pxs_interest_rate: 0 },
   majority_version: '0.19.2',
   max_voted_witnesses: 20,
   max_miner_witnesses: 0,
@@ -1511,7 +1511,7 @@ Return Example:
 - - - - - - - - - - - - - - - - - -
 ### Get Miner Queue
 ```js
-steem.api.getMinerQueue(function(err, result) {
+pixa.api.getMinerQueue(function(err, result) {
   console.log(err, result);
 });
 ```
@@ -1523,14 +1523,14 @@ steem.api.getMinerQueue(function(err, result) {
 /!\ It's **not safe** to use this method with your username and password. This method always return `true` and is only used internally with empty values to enable broadcast.
 
 ```js
-steem.api.login('', '', function(err, result) {
+pixa.api.login('', '', function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Api By Name
 ```js
-steem.api.getApiByName(apiName, function(err, result) {
+pixa.api.getApiByName(apiName, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -1543,7 +1543,7 @@ The follower API queries information about follow relationships between accounts
 Returns an alphabetical ordered array of the accounts that are following a particular account.
 
 ```js
-steem.api.getFollowers(following, startFollower, followType, limit, function(err, result) {
+pixa.api.getFollowers(following, startFollower, followType, limit, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -1559,7 +1559,7 @@ steem.api.getFollowers(following, startFollower, followType, limit, function(err
 
 Call Example:
 ```js
-steem.api.getFollowers('ned', '', 'blog', 2, function(err, result) {
+pixa.api.getFollowers('ned', '', 'blog', 2, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -1581,7 +1581,7 @@ console.log(f);
 var lastKnownFollower = result[result.length - 1].follower;
 
 // Use the last known follower to get the next group of followers
-steem.api.getFollowers('ned', lastKnownFollower, 'blog', 2, function(err, result) {
+pixa.api.getFollowers('ned', lastKnownFollower, 'blog', 2, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -1593,7 +1593,7 @@ See also: [getFollowing](#get-following), [getFollowCount](#get-follow-count)
 ### Get Following
 Returns an alphabetical ordered Array of the accounts that are followed by a particular account.
 ```js
-steem.api.getFollowing(follower, startFollowing, followType, limit, function(err, result) {
+pixa.api.getFollowing(follower, startFollowing, followType, limit, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -1609,7 +1609,7 @@ steem.api.getFollowing(follower, startFollowing, followType, limit, function(err
 
 Call Example:
 ```js
-steem.api.getFollowing('dan', '', 'blog', 2, function(err, result) {
+pixa.api.getFollowing('dan', '', 'blog', 2, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -1634,7 +1634,7 @@ See also: [getFollowers](#get-followers), [getFollowCount](#get-follow-count)
 - - - - - - - - - - - - - - - - - -
 ### Get Follow Count
 ```js
-steem.api.getFollowCount(account, function(err, result) {
+pixa.api.getFollowCount(account, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -1647,7 +1647,7 @@ steem.api.getFollowCount(account, function(err, result) {
 
 Call Example:
 ```js
-steem.api.getFollowCount('ned', function(err, result) {
+pixa.api.getFollowCount('ned', function(err, result) {
   console.log(err, result);
 });
 ```
@@ -1665,10 +1665,10 @@ See also: [getFollowers](#get-followers), [getFollowing](#get-following)
 ## Broadcast API
 - - - - - - - - - - - - - - - - - -
 ### Broadcast Block With Options
-Broadcast a new block on the steem blockchain.
+Broadcast a new block on the pixa blockchain.
 
 ```js
-steem.api.broadcastBlockWith(options, callback);
+pixa.api.broadcastBlockWith(options, callback);
 ```
 
 |Parameter|Datatype|Description|
@@ -1693,21 +1693,21 @@ var options = {
     }
 };
 
-steem.api.broadcastBlockWith(options, function(err, data) {
+pixa.api.broadcastBlockWith(options, function(err, data) {
 	console.log(err, data);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Broadcast Transaction Synchronous
 ```js
-steem.api.broadcastTransactionSynchronous(trx, function(err, result) {
+pixa.api.broadcastTransactionSynchronous(trx, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Broadcast Block
 ```js
-steem.api.broadcastBlock(b, function(err, result) {
+pixa.api.broadcastBlock(b, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -1715,227 +1715,227 @@ steem.api.broadcastBlock(b, function(err, result) {
 - - - - - - - - - - - - - - - - - -
 - - - - - - - - - - - - - - - - - -
 # Broadcast
-The `steem.broadcast` methods cause permanent changes on the blockchain.
+The `pixa.broadcast` methods cause permanent changes on the blockchain.
 - - - - - - - - - - - - - - - - - -
 ### Account Create
 ```js
-steem.broadcast.accountCreate(wif, fee, creator, newAccountName, owner, active, posting, memoKey, jsonMetadata, function(err, result) {
+pixa.broadcast.accountCreate(wif, fee, creator, newAccountName, owner, active, posting, memoKey, jsonMetadata, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Account Create With Delegation
 ```js
-steem.broadcast.accountCreateWithDelegation(wif, fee, delegation, creator, newAccountName, owner, active, posting, memoKey, jsonMetadata, extensions, function(err, result) {
+pixa.broadcast.accountCreateWithDelegation(wif, fee, delegation, creator, newAccountName, owner, active, posting, memoKey, jsonMetadata, extensions, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Delegate Vesting Shares
-Delegates STEEM POWER, denominated in VESTS, from a `delegator` to the `delegatee`. Requires the `delegator`'s private WIF key. Set the delegation to 0 to undelegate.
+Delegates PIXA POWER, denominated in VESTS, from a `delegator` to the `delegatee`. Requires the `delegator`'s private WIF key. Set the delegation to 0 to undelegate.
 ```js
-steem.broadcast.delegateVestingShares(wif, delegator, delegatee, vesting_shares, function(err, result) {
+pixa.broadcast.delegateVestingShares(wif, delegator, delegatee, vesting_shares, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Account Update
 ```js
-steem.broadcast.accountUpdate(wif, account, owner, active, posting, memoKey, jsonMetadata, function(err, result) {
+pixa.broadcast.accountUpdate(wif, account, owner, active, posting, memoKey, jsonMetadata, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Account Witness Proxy
 ```js
-steem.broadcast.accountWitnessProxy(wif, account, proxy, function(err, result) {
+pixa.broadcast.accountWitnessProxy(wif, account, proxy, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Account Witness Vote
 ```js
-steem.broadcast.accountWitnessVote(wif, account, witness, approve, function(err, result) {
+pixa.broadcast.accountWitnessVote(wif, account, witness, approve, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Challenge Authority
 ```js
-steem.broadcast.challengeAuthority(wif, challenger, challenged, requireOwner, function(err, result) {
+pixa.broadcast.challengeAuthority(wif, challenger, challenged, requireOwner, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Change Recovery Account
 ```js
-steem.broadcast.changeRecoveryAccount(wif, accountToRecover, newRecoveryAccount, extensions, function(err, result) {
+pixa.broadcast.changeRecoveryAccount(wif, accountToRecover, newRecoveryAccount, extensions, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Comment
 ```js
-steem.broadcast.comment(wif, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, function(err, result) {
+pixa.broadcast.comment(wif, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Comment Options
 ```js
-steem.broadcast.commentOptions(wif, author, permlink, maxAcceptedPayout, percentSteemDollars, allowVotes, allowCurationRewards, extensions, function(err, result) {
+pixa.broadcast.commentOptions(wif, author, permlink, maxAcceptedPayout, percentPixaBurgers, allowVotes, allowCurationRewards, extensions, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Comment Payout
 ```js
-steem.broadcast.commentPayout(wif, author, permlink, payout, function(err, result) {
+pixa.broadcast.commentPayout(wif, author, permlink, payout, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Comment Reward
 ```js
-steem.broadcast.commentReward(wif, author, permlink, sbdPayout, vestingPayout, function(err, result) {
+pixa.broadcast.commentReward(wif, author, permlink, pxsPayout, vestingPayout, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Convert
 ```js
-steem.broadcast.convert(wif, owner, requestid, amount, function(err, result) {
+pixa.broadcast.convert(wif, owner, requestid, amount, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Curate Reward
 ```js
-steem.broadcast.curateReward(wif, curator, reward, commentAuthor, commentPermlink, function(err, result) {
+pixa.broadcast.curateReward(wif, curator, reward, commentAuthor, commentPermlink, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Custom
 ```js
-steem.broadcast.custom(wif, requiredAuths, id, data, function(err, result) {
+pixa.broadcast.custom(wif, requiredAuths, id, data, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Custom Binary
 ```js
-steem.broadcast.customBinary(wif, id, data, function(err, result) {
+pixa.broadcast.customBinary(wif, id, data, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Custom Json
 ```js
-steem.broadcast.customJson(wif, requiredAuths, requiredPostingAuths, id, json, function(err, result) {
+pixa.broadcast.customJson(wif, requiredAuths, requiredPostingAuths, id, json, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Delete Comment
 ```js
-steem.broadcast.deleteComment(wif, author, permlink, function(err, result) {
+pixa.broadcast.deleteComment(wif, author, permlink, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Escrow Dispute
 ```js
-steem.broadcast.escrowDispute(wif, from, to, agent, who, escrowId, function(err, result) {
+pixa.broadcast.escrowDispute(wif, from, to, agent, who, escrowId, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Escrow Release
 ```js
-steem.broadcast.escrowRelease(wif, from, to, agent, who, receiver, escrowId, sbdAmount, steemAmount, function(err, result) {
+pixa.broadcast.escrowRelease(wif, from, to, agent, who, receiver, escrowId, pxsAmount, pixaAmount, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Escrow Transfer
 ```js
-steem.broadcast.escrowTransfer(wif, from, to, agent, escrowId, sbdAmount, steemAmount, fee, ratificationDeadline, escrowExpiration, jsonMeta, function(err, result) {
+pixa.broadcast.escrowTransfer(wif, from, to, agent, escrowId, pxsAmount, pixaAmount, fee, ratificationDeadline, escrowExpiration, jsonMeta, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Escrow
 ```js
-steem.api.getEscrow(from, escrowId, callback);
+pixa.api.getEscrow(from, escrowId, callback);
 ```
 
 |Parameter|Datatype|Description|
 |---------|--------|-----------|
-|from|string|a steem username|
+|from|string|a pixa username|
 |escrowId|number|id of the specific escrow transfer|
 |callback|function|function(err, data) {/*code*/}|
 
 
 Call Example:
 ```js
-steem.api.getEscrow("username", 23456789, function(err, data) {
+pixa.api.getEscrow("username", 23456789, function(err, data) {
 	console.log(err, data);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Feed Publish
 ```js
-steem.broadcast.feedPublish(wif, publisher, exchangeRate, function(err, result) {
+pixa.broadcast.feedPublish(wif, publisher, exchangeRate, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Pow2
 ```js
-steem.broadcast.pow2(wif, work, newOwnerKey, props, function(err, result) {
+pixa.broadcast.pow2(wif, work, newOwnerKey, props, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Fill Convert Request
 ```js
-steem.broadcast.fillConvertRequest(wif, owner, requestid, amountIn, amountOut, function(err, result) {
+pixa.broadcast.fillConvertRequest(wif, owner, requestid, amountIn, amountOut, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Fill Order
 ```js
-steem.broadcast.fillOrder(wif, currentOwner, currentOrderid, currentPays, openOwner, openOrderid, openPays, function(err, result) {
+pixa.broadcast.fillOrder(wif, currentOwner, currentOrderid, currentPays, openOwner, openOrderid, openPays, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Fill Vesting Withdraw
 ```js
-steem.broadcast.fillVestingWithdraw(wif, fromAccount, toAccount, withdrawn, deposited, function(err, result) {
+pixa.broadcast.fillVestingWithdraw(wif, fromAccount, toAccount, withdrawn, deposited, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Withdraw Routes
-Gets withdraw routes (steem power withdraws).
+Gets withdraw routes (pixa power withdraws).
 
 ```js
-steem.api.getWithdrawRoutes(account, withdrawRouteType, callback);
+pixa.api.getWithdrawRoutes(account, withdrawRouteType, callback);
 ```
 
 |Parameter|Datatype|Description|
 |---------|--------|-----------|
-|account|string|a steem username|
+|account|string|a pixa username|
 |withdrawRouteType|number|a number representing a value from an enumeration. Must be 0, 1 or 2|
 |callback|function|function(err, data) {/*code*/}|
 
 
 Call Example:
 ```js
-steem.api.getWithdrawRoutes("username", 1, function(err, data) {
+pixa.api.getWithdrawRoutes("username", 1, function(err, data) {
 	console.log(err, data);
 });
 ```
@@ -1950,7 +1950,7 @@ Return Example:
 - - - - - - - - - - - - - - - - - -
 ### Interest
 ```js
-steem.broadcast.interest(wif, owner, interest, function(err, result) {
+pixa.broadcast.interest(wif, owner, interest, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -1959,7 +1959,7 @@ steem.broadcast.interest(wif, owner, interest, function(err, result) {
 Cancels an open limit order on the [internal market](http://steemit.com/market). Be aware that the order might be filled, or partially filled, before this call completes.
 
 ```js
-steem.broadcast.limitOrderCancel(wif, owner, orderid, function(err, result) {
+pixa.broadcast.limitOrderCancel(wif, owner, orderid, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -1980,7 +1980,7 @@ See also: [getOpenOrders](#get-open-orders), [limitOrderCancel](#limit-order-can
 Creates a limit order on the [internal market](http://steemit.com/market) to trade one asset for another using a specified minimum. Orders can be set attempt to fill immediately and or to go to the orderbook. Orders in the order book remain until filled or the expiration time is reached.
 
 ```js
-steem.broadcast.limitOrderCreate(wif, owner, orderid, amountToSell, minToReceive, fillOrKill, expiration, function(err, result) {
+pixa.broadcast.limitOrderCreate(wif, owner, orderid, amountToSell, minToReceive, fillOrKill, expiration, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -1990,8 +1990,8 @@ steem.broadcast.limitOrderCreate(wif, owner, orderid, amountToSell, minToReceive
 |wif|Active private key|String||
 |owner|Account name|String|No leading @ symbol|
 |orderid|User defined ordernumber|Integer|Used to cancel orders|
-|amountToSell|Amount to sell|String|"X.XXX ASSET" must have 3 decimal places. e.g. "25.100 SBD"|
-|minToReceive|Amount desired|String|"X.XXX ASSET" must have 3 decimal places. e.g. "20.120 STEEM"|
+|amountToSell|Amount to sell|String|"X.XXX ASSET" must have 3 decimal places. e.g. "25.100 PXS"|
+|minToReceive|Amount desired|String|"X.XXX ASSET" must have 3 decimal places. e.g. "20.120 PIXA"|
 |fillOrKill|Fill order from current order book or kill the order|Boolean|`false` places the order into the Order Book until either cancelled, filled, or the expiration time is reached|
 |expiration|Time when order expires|Integer|Unit milliseconds. Zero is UNIX epoch|
 |function()|Your callback|function||
@@ -2009,7 +2009,7 @@ See also: [getOrderBook](#get-order-book), [getOpenOrders](#get-open-orders), [l
 Creates a limit order on the [internal market](http://steemit.com/market) to trade one asset for another using an exchange rate.  Orders can be set attempt to fill immediately and or to go to the orderbook. Orders in the order book remain until filled or the expiration time is reached.
 
 ```js
-steem.broadcast.limitOrderCreate2(wif, owner, orderid, amountToSell, exchangeRate, fillOrKill, expiration, function(err, result) {
+pixa.broadcast.limitOrderCreate2(wif, owner, orderid, amountToSell, exchangeRate, fillOrKill, expiration, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -2019,7 +2019,7 @@ steem.broadcast.limitOrderCreate2(wif, owner, orderid, amountToSell, exchangeRat
 |wif|Active private key|String||
 |owner|Account name|String|No leading @ symbol|
 |orderid|User defined order identifier|Integer|Used to cancel orders|
-|amountToSell|Amount to sell|String|"X.XXX ASSET" must have 3 decimal places. e.g. "25.100 SBD"|
+|amountToSell|Amount to sell|String|"X.XXX ASSET" must have 3 decimal places. e.g. "25.100 PXS"|
 |exchangeRate|The exchange rate|Integer|`amountToSell` is multiplied by the `exchangeRate` to have the same effect as `minToReceive`|
 |fillOrKill|Fill order from current order book or kill the order|Boolean|`false` places the order into the Order Book until either canceled, filled, or the expiration time is reached|
 |expiration|Time when order expires|Integer|Unit milliseconds. Zero is UNIX epoch|
@@ -2032,28 +2032,28 @@ See also: [getOrderBook](#get-order-book), [getOpenOrders](#get-open-orders), [l
 - - - - - - - - - - - - - - - - - -
 ### Liquidity Reward
 ```js
-steem.broadcast.liquidityReward(wif, owner, payout, function(err, result) {
+pixa.broadcast.liquidityReward(wif, owner, payout, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Pow
 ```js
-steem.broadcast.pow(wif, worker, input, signature, work, function(err, result) {
+pixa.broadcast.pow(wif, worker, input, signature, work, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Prove Authority
 ```js
-steem.broadcast.proveAuthority(wif, challenged, requireOwner, function(err, result) {
+pixa.broadcast.proveAuthority(wif, challenged, requireOwner, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Recover Account
 ```js
-steem.broadcast.recoverAccount(wif, accountToRecover, newOwnerAuthority, recentOwnerAuthority, extensions, function(err, result) {
+pixa.broadcast.recoverAccount(wif, accountToRecover, newOwnerAuthority, recentOwnerAuthority, extensions, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -2062,21 +2062,21 @@ steem.broadcast.recoverAccount(wif, accountToRecover, newOwnerAuthority, recentO
 Changes the `current_reset_account` of the `account` to a new `reset_account`
 
 ```js
-steem.broadcast.setResetAccount(wif, account, current_reset_account, reset_account, callback);
+pixa.broadcast.setResetAccount(wif, account, current_reset_account, reset_account, callback);
 ```
 
 |Parameter|Datatype|Description|
 |---------|--------|-----------|
-|wif|string|Use < steem.auth.toWif(user, pass, type) >|
-|account|string|a steem username|
-|current_reset_account|string|a steem username|
-|reset_account|string|a steem username|
+|wif|string|Use < pixa.auth.toWif(user, pass, type) >|
+|account|string|a pixa username|
+|current_reset_account|string|a pixa username|
+|reset_account|string|a pixa username|
 |callback|function|function(err, data) {/*code*/}|
 
 
 Call Example:
 ```js
-steem.broadcast.setResetAccount(wif, "username", "oldresetaccount", "newresetaccount", function(err, data) {
+pixa.broadcast.setResetAccount(wif, "username", "oldresetaccount", "newresetaccount", function(err, data) {
 	console.log(err, data);
 });
 ```
@@ -2089,36 +2089,36 @@ Return Example:
 - - - - - - - - - - - - - - - - - -
 ### Report Over Production
 ```js
-steem.broadcast.reportOverProduction(wif, reporter, firstBlock, secondBlock, function(err, result) {
+pixa.broadcast.reportOverProduction(wif, reporter, firstBlock, secondBlock, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Request Account Recovery
 ```js
-steem.broadcast.requestAccountRecovery(wif, recoveryAccount, accountToRecover, newOwnerAuthority, extensions, function(err, result) {
+pixa.broadcast.requestAccountRecovery(wif, recoveryAccount, accountToRecover, newOwnerAuthority, extensions, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Escrow Approve
 ```js
-steem.broadcast.escrowApprove(wif, from, to, agent, who, escrowId, approve, function(err, result) {
+pixa.broadcast.escrowApprove(wif, from, to, agent, who, escrowId, approve, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Set Withdraw Vesting Route
 ```js
-steem.broadcast.setWithdrawVestingRoute(wif, fromAccount, toAccount, percent, autoVest, function(err, result) {
+pixa.broadcast.setWithdrawVestingRoute(wif, fromAccount, toAccount, percent, autoVest, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Transfer
-Transfers assets, such as STEEM or SBD, from one account to another.
+Transfers assets, such as PIXA or PXS, from one account to another.
 ```js
-steem.broadcast.transfer(wif, from, to, amount, memo, function(err, result) {
+pixa.broadcast.transfer(wif, from, to, amount, memo, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -2127,15 +2127,15 @@ steem.broadcast.transfer(wif, from, to, amount, memo, function(err, result) {
 |wif|Active private key for the `from` account|String||
 |from|Account name to take asset from|String|No leading @ symbol|
 |to|Account name to place asset into|String|No leading @ symbol|
-|amount|Amount of of asset to transfer|String|"X.XXX ASSET" must have 3 decimal places. e.g. "5.150 SBD"|
+|amount|Amount of of asset to transfer|String|"X.XXX ASSET" must have 3 decimal places. e.g. "5.150 PXS"|
 |function()|Your callback|function||
 
 See also: [transferToVesting](#transfer-to-vesting)
 - - - - - - - - - - - - - - - - - -
 ### Transfer To Vesting
-Vests STEEM into STEEM POWER. This method supports powering up one account from another.
+Vests PIXA into PIXA POWER. This method supports powering up one account from another.
 ```js
-steem.broadcast.transferToVesting(wif, from, to, amount, function(err, result) {
+pixa.broadcast.transferToVesting(wif, from, to, amount, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -2143,44 +2143,44 @@ steem.broadcast.transferToVesting(wif, from, to, amount, function(err, result) {
 |Parameter|Description|Datatype|Notes|
 |---|---|---|---|
 |wif|Active private key for the `from` account|String||
-|from|Account name to take STEEM from|String|No leading @ symbol|
-|to|Account name to vest STEEM POWER into|String|No leading @ symbol. Can be the same account as `to`|
-|amount|Amount of STEEM to vest/power up|String|"X.XXX STEEM" must have 3 decimal places. e.g. "25.100 STEEM". Must be denominated in STEEM|
+|from|Account name to take PIXA from|String|No leading @ symbol|
+|to|Account name to vest PIXA POWER into|String|No leading @ symbol. Can be the same account as `to`|
+|amount|Amount of PIXA to vest/power up|String|"X.XXX PIXA" must have 3 decimal places. e.g. "25.100 PIXA". Must be denominated in PIXA|
 |function()|Your callback|function||
 
 See also: [transfer](#transfer)
 - - - - - - - - - - - - - - - - - -
 ### Vote
 ```js
-steem.broadcast.vote(wif, voter, author, permlink, weight, function(err, result) {
+pixa.broadcast.vote(wif, voter, author, permlink, weight, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Withdraw Vesting
 ```js
-steem.broadcast.withdrawVesting(wif, account, vestingShares, function(err, result) {
+pixa.broadcast.withdrawVesting(wif, account, vestingShares, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Witness Update
 ```js
-steem.broadcast.witnessUpdate(wif, owner, url, blockSigningKey, props, fee, function(err, result) {
+pixa.broadcast.witnessUpdate(wif, owner, url, blockSigningKey, props, fee, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Fill Vesting Withdraw
 ```js
-steem.broadcast.fillVestingWithdraw(wif, fromAccount, toAccount, withdrawn, deposited, function(err, result) {
+pixa.broadcast.fillVestingWithdraw(wif, fromAccount, toAccount, withdrawn, deposited, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Fill Order
 ```js
-steem.broadcast.fillOrder(wif, currentOwner, currentOrderid, currentPays, openOwner, openOrderid, openPays, function(err, result) {
+pixa.broadcast.fillOrder(wif, currentOwner, currentOrderid, currentPays, openOwner, openOrderid, openPays, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -2189,7 +2189,7 @@ steem.broadcast.fillOrder(wif, currentOwner, currentOrderid, currentPays, openOw
 Gets a list of the last `limit` trades from the market.
 
 ```js
-steem.api.getRecentTrades(limit, callback);
+pixa.api.getRecentTrades(limit, callback);
 ```
 
 |Parameter|Datatype|Description|
@@ -2200,7 +2200,7 @@ steem.api.getRecentTrades(limit, callback);
 
 Call Example:
 ```js
-steem.api.getRecentTrades(2, function(err, data) {
+pixa.api.getRecentTrades(2, function(err, data) {
 	console.log(err, data);
 });
 ```
@@ -2208,16 +2208,16 @@ steem.api.getRecentTrades(2, function(err, data) {
 Return Example:
 ```js
  [ { date: '2018-02-10T20:38:39',
-    current_pays: '0.306 SBD',
-    open_pays: '0.340 STEEM' },
+    current_pays: '0.306 PXS',
+    open_pays: '0.340 PIXA' },
   { date: '2018-02-10T20:36:48',
-    current_pays: '8.982 SBD',
-    open_pays: '9.995 STEEM' } ]
+    current_pays: '8.982 PXS',
+    open_pays: '9.995 PIXA' } ]
 ```
 - - - - - - - - - - - - - - - - - -
 ### Fill Transfer From Savings
 ```js
-steem.broadcast.fillTransferFromSavings(wif, from, to, amount, requestId, memo, function(err, result) {
+pixa.broadcast.fillTransferFromSavings(wif, from, to, amount, requestId, memo, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -2226,18 +2226,18 @@ steem.broadcast.fillTransferFromSavings(wif, from, to, amount, requestId, memo, 
 Gets a list of savings withdraws from `account`.
 
 ```js
-steem.api.getSavingsWithdrawFrom(account, callback);
+pixa.api.getSavingsWithdrawFrom(account, callback);
 ```
 
 |Parameter|Datatype|Description|
 |---------|--------|-----------|
-|account|string|a steem username|
+|account|string|a pixa username|
 |callback|function|function(err, data) {/*code*/}|
 
 
 Call Example:
 ```js
-steem.api.getSavingsWithdrawFrom("username", function(err, data) {
+pixa.api.getSavingsWithdrawFrom("username", function(err, data) {
 	console.log(err, data);
 });
 ```
@@ -2251,18 +2251,18 @@ Return Example:
 Gets a list of savings withdraws from `account`.
 
 ```js
-steem.api.getSavingsWithdrawTo(account, callback);
+pixa.api.getSavingsWithdrawTo(account, callback);
 ```
 
 |Parameter|Datatype|Description|
 |---------|--------|-----------|
-|account|string|a steem username|
+|account|string|a pixa username|
 |callback|function|function(err, data) {/*code*/}|
 
 
 Call Example:
 ```js
-steem.api.getSavingsWithdrawTo("username", function(err, data) {
+pixa.api.getSavingsWithdrawTo("username", function(err, data) {
 	console.log(err, data);
 });
 ```
@@ -2274,28 +2274,28 @@ Return Example:
 - - - - - - - - - - - - - - - - - -
 ### Comment Payout
 ```js
-steem.broadcast.commentPayout(wif, author, permlink, payout, function(err, result) {
+pixa.broadcast.commentPayout(wif, author, permlink, payout, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Transfer To Savings
 ```js
-steem.broadcast.transferToSavings(wif, from, to, amount, memo, function(err, result) {
+pixa.broadcast.transferToSavings(wif, from, to, amount, memo, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Transfer From Savings
 ```js
-steem.broadcast.transferFromSavings(wif, from, requestId, to, amount, memo, function(err, result) {
+pixa.broadcast.transferFromSavings(wif, from, requestId, to, amount, memo, function(err, result) {
   console.log(err, result);
 });
 ```
 - - - - - - - - - - - - - - - - - -
 ### Cancel Transfer From Savings
 ```js
-steem.broadcast.cancelTransferFromSavings(wif, from, requestId, function(err, result) {
+pixa.broadcast.cancelTransferFromSavings(wif, from, requestId, function(err, result) {
   console.log(err, result);
 });
 ```
@@ -2303,7 +2303,7 @@ steem.broadcast.cancelTransferFromSavings(wif, from, requestId, function(err, re
 ### Multisig
 You can use multisignature to broadcast an operation.
 ```js
-steem.broadcast.send({
+pixa.broadcast.send({
   extensions: [],
   operations: [
     ['vote', {
@@ -2323,42 +2323,42 @@ steem.broadcast.send({
 - - - - - - - - - - - - - - - - - -
 ### Verify
 ```js
-steem.auth.verify(name, password, auths);
+pixa.auth.verify(name, password, auths);
 ```
 - - - - - - - - - - - - - - - - - -
 ### Generate Keys
 ```js
-steem.auth.generateKeys(name, password, roles);
+pixa.auth.generateKeys(name, password, roles);
 ```
 - - - - - - - - - - - - - - - - - -
 ### Get Private Keys
 ```js
-steem.auth.getPrivateKeys(name, password, roles);
+pixa.auth.getPrivateKeys(name, password, roles);
 ```
 - - - - - - - - - - - - - - - - - -
 ### Is Wif
 ```js
-steem.auth.isWif(privWif);
+pixa.auth.isWif(privWif);
 ```
 - - - - - - - - - - - - - - - - - -
 ### To Wif
 ```js
-steem.auth.toWif(name, password, role);
+pixa.auth.toWif(name, password, role);
 ```
 - - - - - - - - - - - - - - - - - -
 ### Wif Is Valid
 ```js
-steem.auth.wifIsValid(privWif, pubWif);
+pixa.auth.wifIsValid(privWif, pubWif);
 ```
 - - - - - - - - - - - - - - - - - -
 ### Wif To Public
 ```js
-steem.auth.wifToPublic(privWif);
+pixa.auth.wifToPublic(privWif);
 ```
 - - - - - - - - - - - - - - - - - -
 ### Sign Transaction
 ```js
-steem.auth.signTransaction(trx, keys);
+pixa.auth.signTransaction(trx, keys);
 ```
 
 - - - - - - - - - - - - - - - - - -
@@ -2369,43 +2369,43 @@ steem.auth.signTransaction(trx, keys);
 Formats number and currency to the valid way for sending (for example - it trims the number's floating point remainer to 3 digits only).
 
 ```js
-steem.formatter.amount(_amount, asset);
+pixa.formatter.amount(_amount, asset);
 ```
 
 |Parameter|Datatype|Description|
 |---------|--------|-----------|
 |_amount|number|A positive number|
-|asset|string|The name of a steem asset (steem, sbd)|
+|asset|string|The name of a pixa asset (pixa, pxs)|
 
 
 Call Example:
 ```js
-steem.formatter.amount(53.442346, "STEEM");
+pixa.formatter.amount(53.442346, "PIXA");
 ```
 
 Return Example:
 ```js
- "53.442 STEEM" 
+ "53.442 PIXA" 
 ```
 - - - - - - - - - - - - - - - - - -
-### Vesting Steem
-Converts the vests of `account` into the number of Steem they represent.
+### Vesting Pixa
+Converts the vests of `account` into the number of Pixa they represent.
 
 ```js
-steem.formatter.vestingSteem(account, gprops, callback);
+pixa.formatter.vestingPixa(account, gprops, callback);
 ```
 
 |Parameter|Datatype|Description|
 |---------|--------|-----------|
-|account|object|a steem user object|
+|account|object|a pixa user object|
 |groups|object|the properties object of the state of "/@username"|
 
 
 Call Example:
 ```js
-steem.api.getAccounts(["username"], function(e1, accounts) {
-  steem.api.getState("/@username", function (e2, state) {        
-	  var vestingSteem = steem.formatter.vestingSteem(accounts[0], state.props);	
+pixa.api.getAccounts(["username"], function(e1, accounts) {
+  pixa.api.getState("/@username", function (e2, state) {        
+	  var vestingPixa = pixa.formatter.vestingPixa(accounts[0], state.props);	
   });
 });
 ```
@@ -2420,7 +2420,7 @@ Formats a big number, by adding a comma on every 3 digits.
 Attention - only works on strings. No numbers can be passed directly.
 
 ```js
-steem.formatter.numberWithCommas(x);
+pixa.formatter.numberWithCommas(x);
 ```
 
 |Parameter|Datatype|Description|
@@ -2430,9 +2430,9 @@ steem.formatter.numberWithCommas(x);
 
 Call Example:
 ```js
-steem.formatter.numberWithCommas(53304432342.432.toString());
+pixa.formatter.numberWithCommas(53304432342.432.toString());
 // or
-steem.formatter.numberWithCommas("53304432342.432");
+pixa.formatter.numberWithCommas("53304432342.432");
 ```
 
 Return Example:
@@ -2441,21 +2441,21 @@ Return Example:
 ```
 - - - - - - - - - - - - - - - - - -
 ### Estimate Account Value
-Gets the estimated dollar value of the assets of `account`
+Gets the estimated burger value of the assets of `account`
 
 ```js
-steem.formatter.estimateAccountValue(account);
+pixa.formatter.estimateAccountValue(account);
 ```
 
 |Parameter|Datatype|Description|
 |---------|--------|-----------|
-|account|object|a steem user object|
+|account|object|a pixa user object|
 
 
 Call Example:
 ```js
-steem.api.getAccounts(["username"], function(e1, accounts) {
-  var accountValueInUSD = steem.formatter.estimateAccountValue(accounts[0])
+pixa.api.getAccounts(["username"], function(e1, accounts) {
+  var accountValueInUSD = pixa.formatter.estimateAccountValue(accounts[0])
     .catch(function (err) { console.log(err); })
     .then(function (data) { console.log(data); });
 });
@@ -2469,7 +2469,7 @@ Return Example:
 - - - - - - - - - - - - - - - - - -
 ### Create Suggested Password
 ```js
-var password = steem.formatter.createSuggestedPassword();
+var password = pixa.formatter.createSuggestedPassword();
 console.log(password);
 // => 'GAz3GYFvvQvgm7t2fQmwMDuXEzDqTzn9'
 ```
@@ -2478,27 +2478,27 @@ console.log(password);
 ```js
 var parentAuthor = 'ned';
 var parentPermlink = 'a-selfie';
-var commentPermlink = steem.formatter.commentPermlink(parentAuthor, parentPermlink);
+var commentPermlink = pixa.formatter.commentPermlink(parentAuthor, parentPermlink);
 console.log(commentPermlink);
 // => 're-ned-a-selfie-20170621t080403765z'
 ```
 - - - - - - - - - - - - - - - - - -
 ### Estimate Account Value
 ```js
-var steemPower = steem.formatter.estimateAccountValue(account);
+var pixaPower = pixa.formatter.estimateAccountValue(account);
 ```
 - - - - - - - - - - - - - - - - - -
 ### Reputation
 ```js
-var reputation = steem.formatter.reputation(3512485230915);
+var reputation = pixa.formatter.reputation(3512485230915);
 console.log(reputation);
 // => 56
 ```
 - - - - - - - - - - - - - - - - - -
-### Vest To Steem
+### Vest To Pixa
 ```js
-var steemPower = steem.formatter.vestToSteem(vestingShares, totalVestingShares, totalVestingFundSteem);
-console.log(steemPower);
+var pixaPower = pixa.formatter.vestToPixa(vestingShares, totalVestingShares, totalVestingFundPixa);
+console.log(pixaPower);
 ```
 
 - - - - - - - - - - - - - - - - - -
@@ -2507,11 +2507,11 @@ console.log(steemPower);
 - - - - - - - - - - - - - - - - - -
 ### Validate Username
 ```js
-var isValidUsername = steem.utils.validateAccountName('test1234');
+var isValidUsername = pixa.utils.validateAccountName('test1234');
 console.log(isValidUsername);
 // => 'null'
 
-var isValidUsername = steem.utils.validateAccountName('a1');
+var isValidUsername = pixa.utils.validateAccountName('a1');
 console.log(isValidUsername);
 // => 'Account name should be longer.'
 ```
@@ -2520,7 +2520,7 @@ console.log(isValidUsername);
 Formats a string with '_' characters to follow the CamelCase notation instead.
 
 ```js
-steem.utils.camelCase(str);
+pixa.utils.camelCase(str);
 ```
 
 |Parameter|Datatype|Description|
@@ -2530,7 +2530,7 @@ steem.utils.camelCase(str);
 
 Call Example:
 ```js
-steem.utils.camelCase("example_string");
+pixa.utils.camelCase("example_string");
 ```
 
 Return Example:

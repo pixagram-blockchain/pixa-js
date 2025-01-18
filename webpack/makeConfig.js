@@ -22,12 +22,30 @@ function makePlugins(options) {
     plugins = plugins.concat([
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin({
+        toplevel: true,
+        extractComments: false,
+        mangle: {
+          toplevel: true,
+          eval: true,
+          reserved: [
+            'Buffer',
+            'BigInteger',
+            'Point',
+            'ECPubKey',
+            'ECKey',
+            'sha512_asm',
+            'asm',
+            'ECPair',
+            'HDNode'
+          ]
+        },
+        compress: {
+          drop_console: true,
+          passes: 2,
+        },
         output: {
           comments: false,
-        },
-        minimize: true,
-        compress: {
-          warnings: false,
+          beautify: false,
         }
       }),
       new webpack.optimize.AggressiveMergingPlugin(),
@@ -72,8 +90,8 @@ function makeConfig(options) {
   return {
     devtool: isDevelopment ? 'cheap-eval-source-map' : 'source-map',
     entry: {
-      steem: path.join(options.baseDir, 'src/browser.js'),
-      'steem-tests': path.join(options.baseDir, 'test/api.test.js'),
+      pixa: path.join(options.baseDir, 'src/browser.js'),
+      'pixa-tests': path.join(options.baseDir, 'test/api.test.js'),
     },
     output: {
       path: path.join(options.baseDir, 'dist'),

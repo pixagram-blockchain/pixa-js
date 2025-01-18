@@ -6,7 +6,7 @@ const config = require("./config");
 const formatter = require("./formatter")(api);
 const utils = require("./utils");
 
-const steem = {
+const pixa = {
   api,
   auth,
   memo,
@@ -17,11 +17,11 @@ const steem = {
 };
 
 if (typeof window !== "undefined") {
-  window.steem = steem;
+  window.pixa = pixa;
 }
 
 if (typeof global !== "undefined") {
-  global.steem = steem;
+  global.pixa = pixa;
 }
 
-exports = module.exports = steem;
+exports = module.exports = pixa;

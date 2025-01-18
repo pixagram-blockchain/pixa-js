@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "eslint --quiet src test; mocha -t 40000 --require babel-polyfill --require babel-register",
-    "test-auth": "npm test -- --grep 'steem.auth'",
+    "test-auth": "npm test -- --grep 'pixa.auth'",
     "build": "npm run build-browser && npm run build-node",
     "build-browser": "rm -rf dist && NODE_ENV=production node ./node_modules/webpack/bin/webpack.js && gzip -k -f ./dist/*.js && du -h ./dist/*",
     "build-node": "mkdir -p ./lib && cp -r ./src/* ./lib/ && babel ./src --out-dir ./lib",
@@ -20,10 +20,10 @@
     "url": "git+https://github.com/pixagram-blockchain/pixa-js.git"
   },
   "keywords": [
-    "steem",
-    "steemit",
+    "pixa",
+    "pixagram",
     "blockchain",
-    "steemjs"
+    "pixajs"
   ],
   "author": "Fabien (https://github.com/bonustrack)",
   "license": "MIT",
@@ -34,10 +34,10 @@
   "dependencies": {
     "@steemit/rpc-auth": "^1.1.1",
     "bigi": "^1.4.2",
-    "bluebird": "^3.4.6",
-    "browserify-aes": "^1.0.6",
-    "bs58": "^4.0.0",
-    "buffer": "^5.0.6",
+    "bluebird": "~3.4.6",
+    "browserify-aes": "^1.2.0",
+    "bs58": "^5.0.0",
+    "buffer": "^5.7.1",
     "bytebuffer": "^5.0.1",
     "create-hash": "^1.1.2",
     "create-hmac": "^1.1.4",
@@ -46,10 +46,10 @@
     "debug": "^2.6.8",
     "detect-node": "^2.0.3",
     "ecurve": "^1.0.5",
-    "lodash": "^4.16.4",
+    "lodash": "^4.17.21",
     "retry": "^0.12.0",
     "secure-random": "^1.1.2",
-    "ws": "^3.3.2"
+    "ws": "^3.3.3"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",

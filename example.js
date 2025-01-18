@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const steem = require('./lib');
+const pixa = require('./lib');
 
 // Mock `window` and `window.crypto` if needed
 global.window = {};
@@ -9,7 +9,7 @@ window.crypto = {
   },
 };
 
-steem.api.setOptions({
+pixa.api.setOptions({
   url: 'http://134.122.91.207:7777',
   address_prefix: 'PIX',
   chain_id: '18dcf0a285365fc58b71f18b3d3fec954aa0c141c44e4e5cb4cf777b9eab274e',
@@ -23,7 +23,7 @@ const INITMINER_WIF = '5JNHfZYKGaomSFvd4NUdQ9qMcEAC43kujbfjueTHpVapX1Kzq2n';
 async function createAccountAndTransfer() {
   try {
 
-    steem.api.getWitnessSchedule((err, schedule) => {
+    pixa.api.getWitnessSchedule((err, schedule) => {
       if (err) {
         console.error('Error fetching witness schedule:', err);
       } else {
@@ -38,8 +38,8 @@ async function createAccountAndTransfer() {
 
     // Generate keys
     const password   = `random-${Date.now()}`;
-    const ownerWif   = steem.auth.toWif(newAccountName, password, 'owner');
-    const ownerPubkey = steem.auth.wifToPublic(ownerWif);
+    const ownerWif   = pixa.auth.toWif(newAccountName, password, 'owner');
+    const ownerPubkey = pixa.auth.wifToPublic(ownerWif);
 
     // Define an authority (for owner, active, posting)
     const ownerAuth = {
@@ -54,7 +54,7 @@ async function createAccountAndTransfer() {
 
     // 1) Create the account using accountCreate
     await new Promise((resolve, reject) => {
-      steem.broadcast.accountCreate(
+      pixa.broadcast.accountCreate(
         INITMINER_WIF,
         creationFee,
         creatorName,
@@ -76,7 +76,7 @@ async function createAccountAndTransfer() {
     // OPTIONAL: If you want to do a transfer after creation...
     const transferAmount = '1.000 PXCT';
     await new Promise((resolve, reject) => {
-      steem.broadcast.transfer(
+      pixa.broadcast.transfer(
         INITMINER_WIF,
         creatorName,
         newAccountName,
@@ -91,7 +91,7 @@ async function createAccountAndTransfer() {
     console.log(`Transferred ${transferAmount} to ${newAccountName}`);
 
     // Finally, check the new account
-    steem.api.getAccounts([newAccountName], (err, result) => {
+    pixa.api.getAccounts([newAccountName], (err, result) => {
       if (err) {
         console.error('Error getting account info:', err);
       } else {

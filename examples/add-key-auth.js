@@ -1,12 +1,12 @@
-const steem = require('../lib');
+const pixa = require('../lib');
 
 /* Generate private active WIF */
-const username = process.env.STEEM_USERNAME;
-const password = process.env.STEEM_PASSWORD;
-const privActiveWif = steem.auth.toWif(username, password, 'active');
+const username = process.env.PIXA_USERNAME;
+const password = process.env.PIXA_PASSWORD;
+const privActiveWif = pixa.auth.toWif(username, password, 'active');
 
 /** Add posting key auth */
-steem.broadcast.addKeyAuth({
+pixa.broadcast.addKeyAuth({
     signingKey: privActiveWif,
     username,
     authorizedKey: 'STM88CPfhCmeEzCnvC1Cjc3DNd1DTjkMcmihih8SSxmm4LBqRq5Y9',

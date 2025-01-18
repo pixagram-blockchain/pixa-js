@@ -192,7 +192,7 @@ module.exports = [
       "author",
       "permlink",
       "max_accepted_payout",
-      "percent_steem_dollars",
+      "percent_pixa_burgers",
       "allow_votes",
       "allow_curation_rewards",
       "extensions"
@@ -280,8 +280,8 @@ module.exports = [
       "to",
       "agent",
       "escrow_id",
-      "sbd_amount",
-      "steem_amount",
+      "pxs_amount",
+      "pixa_amount",
       "fee",
       "ratification_deadline",
       "escrow_expiration",
@@ -309,8 +309,8 @@ module.exports = [
       "who",
       "receiver",
       "escrow_id",
-      "sbd_amount",
-      "steem_amount"
+      "pxs_amount",
+      "pixa_amount"
     ]
   },
   {
@@ -401,8 +401,8 @@ module.exports = [
     "operation": "claim_reward_balance",
     "params": [
       "account",
-      "reward_steem",
-      "reward_sbd",
+      "reward_pixa",
+      "reward_pxs",
       "reward_vests"
     ]
   },
@@ -528,7 +528,7 @@ module.exports = [
       "contribution_begin_time",
       "contribution_end_time",
       "launch_time",
-      "steem_units_min",
+      "pixa_units_min",
       "min_unit_ratio",
       "max_unit_ratio",
       "extensions"
@@ -562,7 +562,7 @@ module.exports = [
     "params": [
       "control_account",
       "symbol",
-      "steem_units_cap",
+      "pixa_units_cap",
       "generation_policy",
       "remove",
       "extensions"

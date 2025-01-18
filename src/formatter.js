@@ -1,23 +1,23 @@
 import get from "lodash/get";
 import { key_utils } from "./auth/ecc";
 
-module.exports = steemAPI => {
+module.exports = pixaAPI => {
   function numberWithCommas(x) {
     return x.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  function vestingSteem(account, gprops) {
+  function vestingPixa(account, gprops) {
     const vests = parseFloat(account.vesting_shares.split(" ")[0]);
     const total_vests = parseFloat(gprops.total_vesting_shares.split(" ")[0]);
-    const total_vest_steem = parseFloat(
-      gprops.total_vesting_fund_steem.split(" ")[0]
+    const total_vest_pixa = parseFloat(
+      gprops.total_vesting_fund_pixa.split(" ")[0]
     );
-    const vesting_steemf = total_vest_steem * (vests / total_vests);
-    return vesting_steemf;
+    const vesting_pixaf = total_vest_pixa * (vests / total_vests);
+    return vesting_pixaf;
   }
 
   function processOrders(open_orders, assetPrecision) {
-    const sbdOrders = !open_orders
+    const pxsOrders = !open_orders
       ? 0
       : open_orders.reduce((o, order) => {
           if (order.sell_price.base.indexOf("PXS") !== -1) {
@@ -26,7 +26,7 @@ module.exports = steemAPI => {
           return o;
         }, 0) / assetPrecision;
 
-    const steemOrders = !open_orders
+    const pixaOrders = !open_orders
       ? 0
       : open_orders.reduce((o, order) => {
           if (order.sell_price.base.indexOf("PXC") !== -1) {
@@ -35,57 +35,57 @@ module.exports = steemAPI => {
           return o;
         }, 0) / assetPrecision;
 
-    return { steemOrders, sbdOrders };
+    return { pixaOrders, pxsOrders };
   }
 
   function calculateSaving(savings_withdraws) {
     let savings_pending = 0;
-    let savings_sbd_pending = 0;
+    let savings_pxs_pending = 0;
     savings_withdraws.forEach(withdraw => {
       const [amount, asset] = withdraw.amount.split(" ");
       if (asset === "PXC") savings_pending += parseFloat(amount);
       else {
-        if (asset === "PXS") savings_sbd_pending += parseFloat(amount);
+        if (asset === "PXS") savings_pxs_pending += parseFloat(amount);
       }
     });
-    return { savings_pending, savings_sbd_pending };
+    return { savings_pending, savings_pxs_pending };
   }
 
-  function pricePerSteem(feed_price) {
-    let price_per_steem = undefined;
+  function pricePerPixa(feed_price) {
+    let price_per_pixa = undefined;
     const { base, quote } = feed_price;
     if (/ PXS$/.test(base) && / PXC$/.test(quote)) {
-      price_per_steem = parseFloat(base.split(" ")[0]) / parseFloat(quote.split(" ")[0]);
+      price_per_pixa = parseFloat(base.split(" ")[0]) / parseFloat(quote.split(" ")[0]);
     }
-    return price_per_steem;
+    return price_per_pixa;
   }
 
   function estimateAccountValue(
     account,
-    { gprops, feed_price, open_orders, savings_withdraws, vesting_steem } = {}
+    { gprops, feed_price, open_orders, savings_withdraws, vesting_pixa } = {}
   ) {
     const promises = [];
     const username = account.name;
     const assetPrecision = 1000;
     let orders, savings;
 
-    if (!vesting_steem || !feed_price) {
+    if (!vesting_pixa || !feed_price) {
       if (!gprops || !feed_price) {
         promises.push(
-          steemAPI.getStateAsync(`/@${username}`).then(data => {
+          pixaAPI.getStateAsync(`/@${username}`).then(data => {
             gprops = data.props;
             feed_price = data.feed_price;
-            vesting_steem = vestingSteem(account, gprops);
+            vesting_pixa = vestingPixa(account, gprops);
           })
         );
       } else {
-        vesting_steem = vestingSteem(account, gprops);
+        vesting_pixa = vestingPixa(account, gprops);
       }
     }
 
     if (!open_orders) {
       promises.push(
-        steemAPI.getOpenOrdersAsync(username).then(open_orders => {
+        pixaAPI.getOpenOrdersAsync(username).then(open_orders => {
           orders = processOrders(open_orders, assetPrecision);
         })
       );
@@ -95,7 +95,7 @@ module.exports = steemAPI => {
 
     if (!savings_withdraws) {
       promises.push(
-        steemAPI
+        pixaAPI
           .getSavingsWithdrawFromAsync(username)
           .then(savings_withdraws => {
             savings = calculateSaving(savings_withdraws);
@@ -106,14 +106,14 @@ module.exports = steemAPI => {
     }
 
     return Promise.all(promises).then(() => {
-      let price_per_steem = pricePerSteem(feed_price);
+      let price_per_pixa = pricePerPixa(feed_price);
 
       const savings_balance = account.savings_balance;
-      const savings_sbd_balance = account.savings_sbd_balance;
-      const balance_steem = parseFloat(account.balance.split(" ")[0]);
-      const saving_balance_steem = parseFloat(savings_balance.split(" ")[0]);
-      const sbd_balance = parseFloat(account.sbd_balance);
-      const sbd_balance_savings = parseFloat(savings_sbd_balance.split(" ")[0]);
+      const savings_pxs_balance = account.savings_pxs_balance;
+      const balance_pixa = parseFloat(account.balance.split(" ")[0]);
+      const saving_balance_pixa = parseFloat(savings_balance.split(" ")[0]);
+      const pxs_balance = parseFloat(account.pxs_balance);
+      const pxs_balance_savings = parseFloat(savings_pxs_balance.split(" ")[0]);
 
       let conversionValue = 0;
       const currentTime = new Date().getTime();
@@ -125,26 +125,26 @@ module.exports = steemAPI => {
         if (finishTime < currentTime) return out;
 
         const amount = parseFloat(
-          get(item, [1, "op", 1, "amount"]).replace(" SBD", "")
+          get(item, [1, "op", 1, "amount"]).replace(" PXS", "")
         );
         conversionValue += amount;
       }, []);
 
-      const total_sbd =
-        sbd_balance +
-        sbd_balance_savings +
-        savings.savings_sbd_pending +
-        orders.sbdOrders +
+      const total_pxs =
+        pxs_balance +
+        pxs_balance_savings +
+        savings.savings_pxs_pending +
+        orders.pxsOrders +
         conversionValue;
 
-      const total_steem =
-        vesting_steem +
-        balance_steem +
-        saving_balance_steem +
+      const total_pixa =
+        vesting_pixa +
+        balance_pixa +
+        saving_balance_pixa +
         savings.savings_pending +
-        orders.steemOrders;
+        orders.pixaOrders;
 
-      return (total_steem * price_per_steem + total_sbd).toFixed(2);
+      return (total_pixa * price_per_pixa + total_pxs).toFixed(2);
     });
   }
 
@@ -166,13 +166,13 @@ module.exports = steemAPI => {
       return parseInt(v * 9 + 25);
     },
 
-    vestToSteem: function(
+    vestToPixa: function(
       vestingShares,
       totalVestingShares,
-      totalVestingFundSteem
+      totalVestingFundPixa
     ) {
       return (
-        parseFloat(totalVestingFundSteem) *
+        parseFloat(totalVestingFundPixa) *
         (parseFloat(vestingShares) / parseFloat(totalVestingShares))
       );
     },
@@ -190,9 +190,9 @@ module.exports = steemAPI => {
       return amount.toFixed(3) + " " + asset;
     },
     numberWithCommas,
-    vestingSteem,
+    vestingPixa,
     estimateAccountValue,
     createSuggestedPassword,
-    pricePerSteem
+    pricePerPixa
   };
 };
