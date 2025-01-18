@@ -132,15 +132,15 @@ Types.asset = {
           {
             case "@@000000021":
               precision = 3
-              symbol = Config.get( "address_prefix" ) == "PIX" ? "PXC" : "PXCT"
+              symbol = Config.get( "address_prefix" ) == "PIX" ? "PXCT" : "PXCT"
               break
             case "@@000000013":
               precision = 3
-              symbol = Config.get( "address_prefix" ) == "PIX" ? "PXS" : "PXST"
+              symbol = Config.get( "address_prefix" ) == "PIX" ? "PXST" : "PXST"
               break
             case "@@000000037":
               precision = 6
-              symbol = Config.get( "address_prefix" ) == "PIX" ? "PXP" : "PXPT"
+              symbol = Config.get( "address_prefix" ) == "PIX" ? "PXPT" : "PXPT"
               break
           }
 
@@ -249,15 +249,15 @@ Types.asset_symbol = {
         {
           case "@@000000021":
             precision = 3
-              symbol = Config.get( "address_prefix" ) == "PIX" ? "PXC" : "PXCT"
+              symbol = Config.get( "address_prefix" ) == "PIX" ? "PXCT" : "PXCT"
             break
           case "@@000000013":
             precision = 3
-            symbol = Config.get( "address_prefix" ) == "PIX" ? "PXS" : "PXST"
+            symbol = Config.get( "address_prefix" ) == "PIX" ? "PXST" : "PXST"
             break
           case "@@000000037":
             precision = 6
-            symbol = Config.get( "address_prefix" ) == "PIX" ? "PXP" : "PXPT"
+            symbol = Config.get( "address_prefix" ) == "PIX" ? "PXPT" : "PXPT"
             break
         }
 
