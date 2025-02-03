@@ -56,7 +56,7 @@ $ npm install pixa --save
 ```
 
 ## RPC Servers
-https://api.steemit.com By Default<br/>
+https://api.TODO.com By Default<br/>
 
 ## Examples
 ### Broadcast Vote
